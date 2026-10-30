@@ -154,13 +154,13 @@ class NoticeExtraction(BaseModel):
 FIELDS = list(NoticeExtraction.model_fields)
 
 
-def strict_json_schema() -> dict[str, Any]:
-    """The schema in the form strict structured output accepts.
+def strict_json_schema(model: type[BaseModel] = NoticeExtraction) -> dict[str, Any]:
+    """The model's schema in the form strict structured output accepts.
 
     Providers want every property listed as required, no extra properties and no
     references, so the Pydantic schema is inlined and tightened here.
     """
-    schema = NoticeExtraction.model_json_schema()
+    schema = model.model_json_schema()
     definitions = schema.pop("$defs", {})
 
     def tighten(node: Any) -> Any:

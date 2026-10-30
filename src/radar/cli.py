@@ -12,6 +12,7 @@ from radar import db
 from radar.annotate import KEYWORDS, QUESTIONS, parse_answer, parse_value
 from radar.annotate import hits as keyword_hits
 from radar.annotate import sample as choose_sample
+from radar.ask import ask as ask_question
 from radar.evalset import (
     DATASET,
     REPORT,
@@ -336,3 +337,35 @@ def import_dataset_command(data_dir: DataDir = Path("data")) -> None:
     data_dir.mkdir(parents=True, exist_ok=True)
     conn = db.connect(data_dir / "radar.db")
     typer.echo(f"{import_dataset(conn)} notices loaded from {DATASET}")
+
+
+@app.command()
+def ask(
+    notice: Annotated[str, typer.Argument(help="Control number of a parsed notice.")],
+    question: Annotated[str, typer.Argument(help="The question, in Portuguese.")],
+    model: Annotated[
+        str, typer.Option(help="provider:model[@reasoning].")
+    ] = "gemini:gemini-3.5-flash-lite",
+    data_dir: DataDir = Path("data"),
+) -> None:
+    """Answer a question about one edital, citing pages, and check every citation."""
+    conn = db.connect(data_dir / "radar.db")
+    pages = pages_of(conn, notice)
+    if not pages:
+        raise typer.BadParameter(f"{notice} has no parsed pages")
+    with httpx.Client(timeout=httpx.Timeout(300.0, connect=10.0)) as http:
+        reply = ask_question(
+            ChatClient(http, data_dir / "cache"), Model.parse(model), pages, question
+        )
+    typer.echo(f"pages read: {', '.join(map(str, reply.pages_sent)) or 'none'}")
+    if reply.answer is None:
+        typer.secho(f"no answer: {reply.error}", fg=typer.colors.RED)
+        raise typer.Exit(1)
+    if not reply.answer.answerable:
+        typer.secho("The edital does not answer this.", fg=typer.colors.YELLOW)
+    typer.echo(f"\n{reply.answer.answer}\n")
+    marks = {"on_page": "verified", "other_page": "on another page", "not_found": "NOT FOUND"}
+    for check in reply.checks:
+        color = typer.colors.GREEN if check.found == "on_page" else typer.colors.RED
+        typer.secho(f"  p.{check.citation.page} [{marks[check.found]}]", fg=color, nl=False)
+        typer.echo(f" {check.citation.quote!r}")

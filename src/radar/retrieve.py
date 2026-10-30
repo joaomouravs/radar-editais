@@ -68,14 +68,14 @@ def select(pages: list[str], budget: int = BUDGET_CHARS) -> list[Span]:
             if not queue:
                 continue
             candidate = queue.pop(0)
-            merged = _merge([*spans, candidate])
+            merged = merge([*spans, candidate])
             if sum(s.end - s.start for s in merged) > budget:
                 return spans
             spans = merged
     return spans
 
 
-def _merge(spans: list[Span]) -> list[Span]:
+def merge(spans: list[Span]) -> list[Span]:
     """Sorted spans with overlapping or touching ones on the same page joined."""
     merged: list[Span] = []
     for span in sorted(spans, key=lambda s: (s.page, s.start)):

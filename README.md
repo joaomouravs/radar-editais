@@ -72,6 +72,27 @@ fetch ──> parse ──> extract ──> evaluate
   that each quote is on the page it cites (ignoring case, spacing and line-break
   hyphenation, nothing else).
 
+### Asking questions
+
+`radar ask` answers a free-form question about one edital. A question can be about
+anything, so the fixed per-field keywords do not apply: the edital is cut into
+1,000-character chunks, ranked with BM25 over the question's words (folded, stop words
+removed), and the best chunks up to 10,000 characters are sent with their page tags.
+The answer is structured (`answerable`, `answer`, `citations`), and every citation is
+checked against the page it names before it is printed.
+
+```
+$ radar ask 42498600000171-1-004542/2026 "Quantos vigilantes e postos de trabalho a empresa precisa fornecer?"
+pages read: 2, 4, 6, 7, 8, 18, 22, 26, 33
+
+A prestação do serviço será executada com 75 postos de trabalho, totalizando 104 vigilantes nas dependências da PGE.
+
+  p.2 [verified] 'A prestação do serviço será executada mediante a utilização de 75 (setenta e cinco) postos de trabalho, totalizando a disponibilização de 104 (cento e quatro) de Vigilantes nas dependências da PGE'
+```
+
+Asked what meal allowance the CEFET/RJ contract pays, it answers that the excerpts do
+not say, instead of reaching for a typical value.
+
 ### Labels
 
 | Source | Fields | How |
@@ -105,6 +126,7 @@ uv run radar parse                                             # page text
 uv run radar extract --model gemini:gemini-3.5-flash-lite --eval-set
 uv run radar evaluate 1 --errors                               # scores, then every miss
 uv run radar report                                            # evals/REPORT.md
+uv run radar ask <control-number> "Precisa de visita técnica?"
 ```
 
 Without downloading anything, `uv run radar import-dataset` loads the evaluation set
