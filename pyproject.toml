@@ -3,6 +3,8 @@ name = "radar"
 version = "0.1.0"
 description = "Structured, evaluated LLM extraction from Brazilian public procurement notices."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "João Vitor Moura dos Santos" }]
 requires-python = ">=3.12"
 dependencies = [
