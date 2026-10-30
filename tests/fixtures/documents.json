@@ -1,0 +1,58 @@
+[
+  {
+    "uri": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/1",
+    "tipoDocumentoNome": "Termo de Referência",
+    "tipoDocumentoDescricao": "Termo de Referência",
+    "url": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/1",
+    "statusAtivo": true,
+    "cnpj": "42441758000105",
+    "anoCompra": 2026,
+    "sequencialCompra": 187,
+    "dataPublicacaoPncp": "2026-10-20T04:00:09",
+    "sequencialDocumento": 1,
+    "titulo": "TR e demais anexos.pdf",
+    "tipoDocumentoId": 4
+  },
+  {
+    "uri": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/2",
+    "tipoDocumentoNome": "Edital",
+    "tipoDocumentoDescricao": "Edital",
+    "url": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/2",
+    "statusAtivo": true,
+    "cnpj": "42441758000105",
+    "anoCompra": 2026,
+    "sequencialCompra": 187,
+    "dataPublicacaoPncp": "2026-10-20T04:01:13",
+    "sequencialDocumento": 2,
+    "titulo": "Edital 49.2026.pdf",
+    "tipoDocumentoId": 2
+  },
+  {
+    "uri": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/3",
+    "tipoDocumentoNome": "Outros Documentos",
+    "tipoDocumentoDescricao": "Outros Documentos",
+    "url": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/3",
+    "statusAtivo": true,
+    "cnpj": "42441758000105",
+    "anoCompra": 2026,
+    "sequencialCompra": 187,
+    "dataPublicacaoPncp": "2026-10-20T04:01:15",
+    "sequencialDocumento": 3,
+    "titulo": "Errata.pdf",
+    "tipoDocumentoId": 16
+  },
+  {
+    "uri": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/4",
+    "tipoDocumentoNome": "Termo de Referência",
+    "tipoDocumentoDescricao": "Termo de Referência",
+    "url": "https://pncp.gov.br/pncp-api/v1/orgaos/42441758000105/compras/2026/187/arquivos/4",
+    "statusAtivo": true,
+    "cnpj": "42441758000105",
+    "anoCompra": 2026,
+    "sequencialCompra": 187,
+    "dataPublicacaoPncp": "2026-10-20T04:01:36",
+    "sequencialDocumento": 4,
+    "titulo": "217/2026.pdf",
+    "tipoDocumentoId": 4
+  }
+]

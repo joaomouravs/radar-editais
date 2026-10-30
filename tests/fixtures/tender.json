@@ -1,0 +1,60 @@
+{
+  "dataAtualizacao": "2026-10-20T04:00:08",
+  "valorTotalHomologado": null,
+  "orgaoEntidade": {
+    "cnpj": "42441758000105",
+    "razaoSocial": "CENTRO FED DE ED TECNOLOGICA CELSO SUCKOW DA FONSECA RJ",
+    "poderId": "E",
+    "esferaId": "F"
+  },
+  "dataInclusao": "2026-10-20T04:00:08",
+  "numeroCompra": "264",
+  "processo": "23063.002758/2026-91",
+  "objetoCompra": "Contratação sistêmica de empresa, por Sistema de Registro de Preços (SRP), para prestação de serviços de manutenção preventiva e corretiva em equipamentos de climatização e refrigeração para as unidades Angra dos Reis, Itaguaí, Maracanã, Maria da Graça e Nova Friburgo, sem regime de dedicação exclusiva de mão de obra, nos termos da tabela abaixo e conforme as condições e exigências estabelecidas neste instrumento.",
+  "informacaoComplementar": "Havendo divergência entre a especificação do bem constante no Termo de Referência e a descrição contida no Catálogo de Serviços (CATSER) do SIASG, deverá prevalecer a especificação do Termo de Referência.",
+  "dataAberturaProposta": "2026-10-20T08:00:00",
+  "dataEncerramentoProposta": "2026-11-05T10:00:00",
+  "dataPublicacaoPncp": "2026-10-20T04:00:08",
+  "dataAtualizacaoGlobal": "2026-10-20T04:21:59",
+  "unidadeOrgao": {
+    "ufNome": "Rio de Janeiro",
+    "ufSigla": "RJ",
+    "municipioNome": "Rio de Janeiro",
+    "codigoUnidade": "153010",
+    "nomeUnidade": "MEC-CEFET-CENT.FED.ED.TEC.CELSO S.FONSECA/RJ",
+    "codigoIbge": "3304557"
+  },
+  "orgaoSubRogado": null,
+  "unidadeSubRogada": null,
+  "amparoLegal": {
+    "nome": "Lei 14.133/2021, Art. 28, I",
+    "descricao": "pregão: modalidade de licitação obrigatória para aquisição de bens e serviços comuns",
+    "codigo": 1
+  },
+  "linkSistemaOrigem": "https://cnetmobile.estaleiro.serpro.gov.br/comprasnet-web/public/compras/acompanhamento-compra?compra=15301005002642026",
+  "linkProcessoEletronico": "https://suap.cefet-rj.br/processo_eletronico/visualizar_processo/9c53ed3d-9406-4ca6-9796-404efea9fa0d/",
+  "justificativaPresencial": null,
+  "anoCompra": 2026,
+  "srp": true,
+  "sequencialCompra": 187,
+  "emendaParlamentar": null,
+  "numeroControlePNCP": "42441758000105-1-000187/2026",
+  "valorTotalEstimado": 2812281.48,
+  "modalidadeId": 6,
+  "modalidadeNome": "Pregão - Eletrônico",
+  "modoDisputaId": 1,
+  "modoDisputaNome": "Aberto",
+  "tipoInstrumentoConvocatorioCodigo": 1,
+  "tipoInstrumentoConvocatorioNome": "Edital",
+  "fontesOrcamentarias": [
+    {
+      "codigo": 4,
+      "nome": "Federal",
+      "descricao": "Recurso orçamentário federal disponível e devidamente vinculado à despesa que será realizada.",
+      "dataInclusao": "2026-10-20T04:00:10"
+    }
+  ],
+  "situacaoCompraId": 1,
+  "situacaoCompraNome": "Divulgada no PNCP",
+  "usuarioNome": "Compras.gov.br"
+}
