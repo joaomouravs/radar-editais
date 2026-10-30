@@ -10,6 +10,7 @@ import sqlite3
 import unicodedata
 from collections import Counter
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta
 from pathlib import Path
 from statistics import quantiles
 from typing import Any
@@ -63,7 +64,15 @@ def same(field_name: str, predicted: Any, label: Any) -> bool:
     if field_name == "estimated_value":
         return abs(float(predicted) - float(label)) < 0.005
     if field_name == "proposal_deadline":
-        return str(predicted)[:16] == str(label)[:16]
+        # PNCP records proposals as closing one minute before the session the edital
+        # announces (09:59 for a 10:00 session), so one minute apart is the same deadline.
+        try:
+            gap = datetime.fromisoformat(str(predicted)[:16]) - datetime.fromisoformat(
+                str(label)[:16]
+            )
+        except ValueError:
+            return False
+        return abs(gap) <= timedelta(minutes=1)
     if field_name == "performance_guarantee_pct":
         return abs(float(predicted) - float(label)) < 0.01
     return predicted == label
@@ -115,12 +124,12 @@ def evaluate(conn: sqlite3.Connection, run_id: int, annotations: Path = ANNOTATI
     ).fetchall()
     for row in rows:
         report.notices += 1
-        report.tokens_in.append(row["tokens_in"])
-        report.tokens_out.append(row["tokens_out"])
-        report.latency_ms.append(row["latency_ms"])
         if row["output"] is None:
             report.failures += 1
             continue
+        report.tokens_in.append(row["tokens_in"])
+        report.tokens_out.append(row["tokens_out"])
+        report.latency_ms.append(row["latency_ms"])
         output = NoticeExtraction.model_validate_json(row["output"])
         pages = [
             r["text"]
@@ -203,7 +212,8 @@ def to_markdown(report: Report) -> str:
         f" on the cited page, {report.grounding['other_page']} on another page, "
         f"{report.grounding['not_found']} not in the document.",
         "",
-        f"Tokens per notice: p50 {_p(report.tokens_in, 50)} in, {_p(report.tokens_out, 50)} out. "
+        f"Tokens per valid answer: p50 {_p(report.tokens_in, 50)} in, "
+        f"{_p(report.tokens_out, 50)} out. "
         f"Latency: p50 {_p(report.latency_ms, 50) / 1000:.1f}s, "
         f"p95 {_p(report.latency_ms, 95) / 1000:.1f}s.",
     ]

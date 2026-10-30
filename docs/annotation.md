@@ -50,3 +50,15 @@ model is asked exactly what the annotator answered: the field descriptions in
 - **not mentioned** otherwise. A clause about companies "isoladamente ou em consórcio"
   that wrote the basic project is about conflicts of interest, not about whether
   consortia may bid; on its own it is *not mentioned*.
+
+## Reviewing disagreements with the API
+
+`radar review <run>` walks through every field where a model and a silver label
+disagree and asks who is right, reading the edital. Each decision goes to
+`annotations/overrides.jsonl`, including "the API was right", so it is not asked twice.
+
+Unlike annotation, review shows the model's answer: it is a dispute between two
+sources, and the reviewer needs both. That has a cost worth stating. Only disagreements
+are reviewed, so a field where the model and the API are both wrong in the same way is
+never looked at, and accuracy against silver labels is an upper bound. The gold fields
+do not have this problem: they are annotated blind, for every notice in the set.

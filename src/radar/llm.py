@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -138,13 +139,21 @@ class ChatClient:
                     raise LlmError(f"{model.id}: HTTP {resp.status_code}: {resp.text[:500]}")
                 if attempt == self._retries:
                     raise LlmError(f"{model.id}: HTTP {resp.status_code} after retries")
-                wait = _retry_after(resp) or 2.0**attempt
+                wait = _retry_after(resp) or (
+                    # A spent per-minute quota needs most of a minute to come back.
+                    min(15.0 * 2**attempt, 60.0) if resp.status_code == 429 else 2.0**attempt
+                )
             self._sleep(wait)
             attempt += 1
 
 
 def _retry_after(resp: httpx.Response) -> float | None:
+    """The wait the provider asked for: a Retry-After header (Groq), or the retryDelay
+    Gemini puts in the error body ("retryDelay": "37s")."""
     value = resp.headers.get("retry-after")
+    if value is None:
+        match = re.search(r'"retryDelay":\s*"(\d+(?:\.\d+)?)s"', resp.text)
+        value = match.group(1) if match else None
     try:
         return min(float(value), 120.0) if value else None
     except ValueError:

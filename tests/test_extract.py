@@ -195,3 +195,15 @@ def test_runs_and_predictions_are_stored(tmp_path):
     assert (row["error"], row["attempts"], row["tokens_in"]) == (None, 1, 1000)
     run = conn.execute("SELECT * FROM runs").fetchone()
     assert (run["model"], run["strategy"]) == ("gemini:gemini-3.5-flash-lite", "full")
+
+
+def test_rate_limits_read_gemini_retry_delay_or_wait_most_of_a_minute(tmp_path):
+    sleeps: list[float] = []
+    gemini_429 = httpx.Response(
+        429,
+        json=[{"error": {"code": 429, "details": [{"retryDelay": "37s"}]}}],
+    )
+    provider = FakeProvider(gemini_429, httpx.Response(429), VALID)
+
+    assert extract(client(provider, tmp_path, sleeps), MODEL, PAGES).output is not None
+    assert sleeps == [37.0, 30.0]

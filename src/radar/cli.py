@@ -9,7 +9,7 @@ import httpx
 import typer
 
 from radar import db
-from radar.annotate import KEYWORDS, QUESTIONS, parse_answer
+from radar.annotate import KEYWORDS, QUESTIONS, parse_answer, parse_value
 from radar.annotate import hits as keyword_hits
 from radar.annotate import sample as choose_sample
 from radar.evaluate import evaluate as score_run
@@ -25,6 +25,16 @@ from radar.pncp import PncpClient, new_http_client
 app = typer.Typer(no_args_is_help=True, add_completion=False)
 
 EVAL_SET = Path("annotations/eval_set.txt")
+
+# Passages shown next to a disagreement, so the edital can be checked without the PDF.
+REVIEW_KEYWORDS = {
+    "estimated_value": ["valor estimado", "valor total", "valor global"],
+    "proposal_deadline": ["sessao publica", "abertura", "envio de propostas"],
+    "award_criterion": ["criterio de julgamento"],
+    "dispute_mode": ["modo de disputa"],
+    "price_registration": ["registro de precos"],
+    "small_business": ["exclusiv", "cota reservada", "cota de ate"],
+}
 
 DataDir = Annotated[Path, typer.Option(help="Where the database and the PDFs live.")]
 
@@ -218,3 +228,52 @@ def annotate(
         with (ANNOTATIONS / "gold.jsonl").open("a", encoding="utf-8") as out:
             out.write(json.dumps(entry, ensure_ascii=False) + "\n")
         typer.secho("saved", fg=typer.colors.GREEN)
+
+
+@app.command()
+def review(
+    run: Annotated[int, typer.Argument(help="Run whose disagreements with the API to review.")],
+    reviewer: Annotated[str, typer.Option(help="Your name, stored with each decision.")],
+    data_dir: DataDir = Path("data"),
+) -> None:
+    """Decide, reading the edital, who is right where the model and the API disagree.
+
+    Every decision is saved to annotations/overrides.jsonl, including "the API was right",
+    so the same disagreement is not asked again.
+    """
+    conn = db.connect(data_dir / "radar.db")
+    report = score_run(conn, run)
+    pending = [
+        e for e in report.examples if e["label_source"] == "silver" and e["outcome"] != "missed"
+    ]
+    typer.echo(f"{len(pending)} disagreements with silver labels. Rules: docs/annotation.md")
+    for position, example in enumerate(pending, 1):
+        number, field_name = example["notice"], example["field"]
+        evidence = example["evidence"] or {}
+        pages = pages_of(conn, number)
+        typer.secho(f"\n[{position}/{len(pending)}] {number}  {field_name}", bold=True)
+        typer.echo(f"  API says:   {example['label']!r}")
+        typer.echo(f"  model says: {example['predicted']!r}, p.{evidence.get('page')}")
+        typer.echo(f"  quote: {evidence.get('quote')!r}")
+        for hit in keyword_hits(pages, REVIEW_KEYWORDS.get(field_name, []), limit=4):
+            typer.echo(f"  p.{hit.page}: {hit.snippet}")
+        choice = typer.prompt("  [a]PI right, [m]odel right, [o]ther value, [s]kip").lower()
+        if choice == "s":
+            continue
+        if choice == "a":
+            value = example["label"]
+        elif choice == "m":
+            value = example["predicted"]
+        else:
+            value = parse_value(field_name, typer.prompt("  value (JSON, e.g. 5, true, null)"))
+        reason = typer.prompt("  why (Enter to skip)", default="", show_default=False)
+        entry = {
+            "control_number": number,
+            "field": field_name,
+            "value": value,
+            "reviewer": reviewer,
+            "reason": reason or f"reviewed: {'API' if choice == 'a' else 'model'} right",
+        }
+        with (ANNOTATIONS / "overrides.jsonl").open("a", encoding="utf-8") as out:
+            out.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        typer.secho("  saved", fg=typer.colors.GREEN)

@@ -7,6 +7,7 @@ prediction, and the evaluation would end up measuring agreement with itself.
 
 from __future__ import annotations
 
+import json
 import random
 import re
 import sqlite3
@@ -105,3 +106,15 @@ def parse_answer(field: str, text: str) -> tuple[bool, Any]:
     if field == "contract_term_months":
         return (number.is_integer() and number > 0, int(number))
     return (0 < number <= 100, number)
+
+
+def parse_value(field: str, text: str) -> Any:
+    """A label typed during review: JSON (5, true, null, "open") or a bare word."""
+    text = text.strip()
+    try:
+        value = json.loads(text)
+    except json.JSONDecodeError:
+        value = text
+    if field == "proposal_deadline" and isinstance(value, str):
+        return value[:16]
+    return value

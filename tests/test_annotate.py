@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 
 from radar import db
-from radar.annotate import fold, hits, parse_answer, sample
+from radar.annotate import fold, hits, parse_answer, parse_value, sample
 
 
 def test_fold_keeps_offsets():
@@ -63,3 +63,18 @@ def test_sample_is_reproducible_and_limits_each_body():
     assert chosen == sample(conn, 10, per_body=2)
     assert len(chosen) == 8  # four bodies, two each, fewer than asked
     assert all(sum(c.startswith(f"{b}-") for c in chosen) == 2 for b in range(4))
+
+
+@pytest.mark.parametrize(
+    ("field", "typed", "expected"),
+    [
+        ("estimated_value", "2639799.36", 2639799.36),
+        ("price_registration", "false", False),
+        ("small_business", "exclusive", "exclusive"),
+        ("small_business", '"partial"', "partial"),
+        ("site_visit", "null", None),
+        ("proposal_deadline", "2026-11-05T10:00:00", "2026-11-05T10:00"),
+    ],
+)
+def test_parse_value(field, typed, expected):
+    assert parse_value(field, typed) == expected
