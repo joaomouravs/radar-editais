@@ -8,6 +8,8 @@ import httpx
 import typer
 
 from radar import db
+from radar.evaluate import evaluate as score_run
+from radar.evaluate import to_markdown
 from radar.extract import extract as extract_notice
 from radar.extract import pages_of, save, start_run
 from radar.fetch import fetch as fetch_notices
@@ -120,3 +122,25 @@ def extract(
                 f"{'  cached' if result.cached else ''}  {status}"
             )
     typer.echo(f"run {run_id}: {ok}/{len(numbers)} valid")
+
+
+@app.command()
+def evaluate(
+    run: Annotated[int, typer.Argument(help="Run id, as printed by extract.")],
+    errors: Annotated[bool, typer.Option(help="List every field the run got wrong.")] = False,
+    data_dir: DataDir = Path("data"),
+) -> None:
+    """Score a run against the silver, gold and corrected labels."""
+    conn = db.connect(data_dir / "radar.db")
+    report = score_run(conn, run)
+    typer.echo(to_markdown(report))
+    if errors:
+        typer.echo("")
+        for example in report.examples:
+            evidence = example["evidence"] or {}
+            typer.echo(
+                f"{example['notice']}  {example['field']}: {example['outcome']}, "
+                f"expected {example['label']!r} ({example['label_source']}), "
+                f"got {example['predicted']!r} p.{evidence.get('page')} "
+                f"{(evidence.get('quote') or '')[:100]!r}"
+            )
