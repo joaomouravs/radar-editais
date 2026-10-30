@@ -1,5 +1,11 @@
 # Annotation guide
 
+The 40 notices in `annotations/eval_set.txt` were annotated by Claude (an LLM, through
+Claude Code) reading each edital's text under these rules, blind to every model's
+answer; each entry says so in its `annotator` field and explains judgement calls in its
+`note`. That makes the gold set a second, independent reading rather than human ground
+truth. A human review of a sample, with the agreement rate, is the planned check on it.
+
 The gold labels cover the four fields the PNCP API does not have. These rules exist so
 that the same edital gets the same label on any day, from any annotator, and so that the
 model is asked exactly what the annotator answered: the field descriptions in
@@ -41,6 +47,10 @@ model is asked exactly what the annotator answered: the field descriptions in
 - For a price registration (SRP), the term of the *ata de registro de preços*.
   Otherwise, the initial term of the contract.
 - Without extensions: "12 months, extendable up to 10 years" is `12`. One year is `12`.
+- A term in days counts when it is a whole number of months: 60 days is `2`, 120 days
+  is `4`. 100 days is *not stated*, because it has no answer in months.
+- Whether it is a price registration is read from the edital, not from the API (one
+  edital in the set calls itself SRP while the API says it is not).
 - **not stated** when the term is only referred to another document.
 
 ### Consortium (`consortium_allowed`)

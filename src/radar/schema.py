@@ -8,7 +8,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator
 
 # Bumped whenever the prompt or a field description changes, so runs stay comparable.
-PROMPT_VERSION = "2"
+PROMPT_VERSION = "3"
 
 
 class Evidence(BaseModel):
@@ -124,7 +124,8 @@ class Months(BaseModel):
     value: int | None = Field(
         description="For a price registration (SRP), the term of the ata de registro de "
         "preços; otherwise the initial term of the contract. In months, without extensions "
-        "(one year is 12). Null if not stated or only referred to another document."
+        "(one year is 12; 60 days is 2). Null if not stated, only referred to another "
+        "document, or given in days that are not whole months."
     )
     evidence: Evidence | None
 
