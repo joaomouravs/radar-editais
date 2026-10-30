@@ -48,6 +48,29 @@ PNCP has two public APIs with no authentication:
 Scope for the dataset: electronic reverse auctions (pregão eletrônico, modality 6),
 which are the most common kind, starting with the state of Rio de Janeiro.
 
+### What the first sample looks like
+
+All 152 pregões published in Rio de Janeiro on 20 and 21 October 2026:
+
+| | Tenders |
+| --- | --- |
+| Edital uploaded as a PDF | 107 |
+| Edital found inside a ZIP | 26 |
+| Edital in Word (.docx, or .doc inside a ZIP) | 10 |
+| Other formats (7z, RAR, .doc) | 6 |
+| ZIP without an edital (terms of reference only, RAR inside) | 2 |
+| No active edital | 1 |
+
+So 133 of 152 (87%) yield a PDF. Inside a ZIP, the edital is the PDF whose name says
+"edital" or "pregão" and does not start like an annex ("Anexo", "Apenso", "Minuta",
+"Termo de Referência"...); when the ZIP holds a single PDF that is not an annex, that is
+the edital. Word files are recorded with their own skip reason, because they have no
+pages; supporting them is a decision for when the evaluation shows the gap matters.
+
+The editais are long: median 52 pages and about 140,000 characters, 90th percentile
+280,000 characters, longest 351 pages. Only one in 133 looks scanned (most pages
+without text), which confirms deferring OCR.
+
 ## Extraction schema
 
 | Field | Type | Label source |

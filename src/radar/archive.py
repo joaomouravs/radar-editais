@@ -19,8 +19,12 @@ from pathlib import PurePosixPath
 MAX_PDF_BYTES = 200 * 1024 * 1024
 
 # An annex often mentions the edital in its name ("Anexo II ao edital - Modelo de
-# proposta"), and so does a draft ("Minuta Edital 26 2026"). They start with these words.
-_NOT_THE_EDITAL = re.compile(r"^(anexo|apenso|apendice|minuta)")
+# proposta"), and so does a draft ("Minuta Edital 26 2026"). They start with these words,
+# or are named after the annex itself (the terms of reference, the preliminary study).
+_NOT_THE_EDITAL = re.compile(
+    r"^(anexo|apenso|apendice|minuta|termo de referencia|tr\b|estudo tecnico|etp\b"
+    r"|planilha|modelo)"
+)
 
 
 @dataclass
@@ -43,10 +47,18 @@ def find_edital(title: str, data: bytes, *, nested: bool = False) -> Edital | st
     if "word/document.xml" in archive.namelist():
         return "edital is a Word document"
 
-    candidates = [info for info in archive.infolist() if _looks_like_edital(_name(info))]
+    files = [info for info in archive.infolist() if not info.is_dir()]
+    pdfs = [info for info in files if _name(info).lower().endswith(".pdf")]
+    candidates = [info for info in pdfs if _names_the_edital(_name(info))]
+    # A ZIP with a single PDF that is not an annex holds the edital under another name,
+    # such as "2026.0008 - 2026.3751 - SERVIÇOS GRAFICOS.pdf".
+    if not candidates and len(pdfs) == 1 and not _is_annex(_name(pdfs[0])):
+        candidates = pdfs
     if not candidates:
-        # Seen once: a ZIP holding only another ZIP. One level is enough.
-        inner = [i for i in archive.infolist() if _name(i).lower().endswith(".zip")]
+        if any(_names_the_edital(_name(i)) for i in files if _is_word(_name(i))):
+            return "edital inside the ZIP is a Word document"
+        # A ZIP holding only another ZIP. One level is enough.
+        inner = [i for i in files if _name(i).lower().endswith(".zip")]
         if len(inner) == 1 and not nested:
             content = _read(archive, inner[0])
             if content is None:
@@ -73,13 +85,22 @@ def _read(archive: zipfile.ZipFile, info: zipfile.ZipInfo) -> bytes | None:
     return None if len(content) > MAX_PDF_BYTES else content
 
 
-def _looks_like_edital(name: str) -> bool:
+def _names_the_edital(name: str) -> bool:
+    """Whether the file name says it is the edital ("Pregão Eletrônico 135-2026" also does)."""
     stem = _fold(PurePosixPath(name).stem)
-    if not name.lower().endswith(".pdf") or "edital" not in stem:
-        return False
-    # Drop leading numbering such as "1. ", "004_0_" or "3 - ".
-    stem = re.sub(r"^[\d\s._-]+", "", stem)
-    return not _NOT_THE_EDITAL.match(stem)
+    return ("edital" in stem or "pregao" in stem) and not _is_annex(name)
+
+
+def _is_annex(name: str) -> bool:
+    # Underscores stand for spaces in many names; leading numbering such as "1. ",
+    # "004_0_" or "3 - " is dropped before matching.
+    stem = _fold(PurePosixPath(name).stem).replace("_", " ")
+    stem = re.sub(r"^[\d\s.-]+", "", stem)
+    return bool(_NOT_THE_EDITAL.match(stem))
+
+
+def _is_word(name: str) -> bool:
+    return name.lower().endswith((".doc", ".docx"))
 
 
 def _name(info: zipfile.ZipInfo) -> str:

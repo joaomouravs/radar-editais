@@ -69,6 +69,39 @@ def test_picks_the_edital_among_the_annexes(names, expected):
     assert found == Edital(PDF, f"Edital.zip/{expected}")
 
 
+def test_pregao_in_the_name_also_marks_the_edital():
+    found = find_edital(
+        "PE 135-2026.zip",
+        make_zip(
+            {
+                "Pregão Eletronico Proc 867-2026 Aquisição de playground.pdf": PDF,
+                "Anexo II - Proc 867-2026 Aquisição de playground.pdf": PDF,
+                "ANEXO III - MODELO DE PROPOSTA - PREGÃO ELETRÔNICO Nº 071-2026.pdf": PDF,
+            }
+        ),
+    )
+    assert isinstance(found, Edital)
+    assert found.title.endswith("/Pregão Eletronico Proc 867-2026 Aquisição de playground.pdf")
+
+
+def test_a_single_pdf_that_is_not_an_annex_is_the_edital():
+    found = find_edital("editais.zip", make_zip({"2026.0008 - SERVIÇOS GRAFICOS.pdf": PDF}))
+    assert found == Edital(PDF, "editais.zip/2026.0008 - SERVIÇOS GRAFICOS.pdf")
+
+    only_annex = make_zip({"002_anexo I_termo de referencia_SEI_00255797.pdf": PDF})
+    assert find_edital("editais.zip", only_annex) == "no edital inside the ZIP"
+
+
+def test_an_edital_in_word_inside_the_zip_is_reported_as_such():
+    upload = make_zip(
+        {
+            "Edital - PE 071-26 - Aquisição de Pneus.doc": b"\xd0\xcf\x11\xe0",
+            "Anexo I - TR - PE 071-26.pdf": PDF,
+        }
+    )
+    assert find_edital("editais.zip", upload) == "edital inside the ZIP is a Word document"
+
+
 def test_prefers_the_complete_edital_over_the_draft_and_the_short_one():
     found = find_edital(
         "EDITAL.zip",
