@@ -12,6 +12,7 @@ from radar import db
 from radar.annotate import KEYWORDS, QUESTIONS, parse_answer, parse_value
 from radar.annotate import hits as keyword_hits
 from radar.annotate import sample as choose_sample
+from radar.evalset import DATASET, REPORT, build_report, export_dataset, export_run
 from radar.evaluate import evaluate as score_run
 from radar.evaluate import to_markdown
 from radar.extract import STRATEGIES, pages_of, save, start_run
@@ -282,3 +283,41 @@ def review(
         with (ANNOTATIONS / "overrides.jsonl").open("a", encoding="utf-8") as out:
             out.write(json.dumps(entry, ensure_ascii=False) + "\n")
         typer.secho("  saved", fg=typer.colors.GREEN)
+
+
+@app.command("export-dataset")
+def export_dataset_command(data_dir: DataDir = Path("data")) -> None:
+    """Write the evaluation set's notices to evals/dataset.jsonl.gz."""
+    conn = db.connect(data_dir / "radar.db")
+    count = export_dataset(conn, EVAL_SET.read_text(encoding="utf-8").split())
+    typer.echo(f"{count} notices written to {DATASET}")
+
+
+@app.command("export-run")
+def export_run_command(
+    run: Annotated[int, typer.Argument(help="Run id, as printed by extract.")],
+    name: Annotated[str, typer.Argument(help="File name in evals/runs/, without .json.")],
+    data_dir: DataDir = Path("data"),
+) -> None:
+    """Publish a run's answers to evals/runs/ so the report includes it."""
+    conn = db.connect(data_dir / "radar.db")
+    typer.echo(f"written {export_run(conn, run, name)}")
+
+
+@app.command()
+def report(
+    check: Annotated[
+        bool, typer.Option(help="Fail if evals/REPORT.md differs instead of writing it.")
+    ] = False,
+) -> None:
+    """Score every published run from the files in evals/ and write evals/REPORT.md."""
+    text = build_report()
+    if check:
+        current = REPORT.read_text(encoding="utf-8") if REPORT.exists() else ""
+        if current.replace("\r\n", "\n") != text:
+            typer.echo(f"{REPORT} is out of date; run `radar report` and commit it.", err=True)
+            raise typer.Exit(1)
+        typer.echo(f"{REPORT} is up to date")
+        return
+    REPORT.write_text(text, encoding="utf-8", newline="\n")
+    typer.echo(f"written {REPORT}")

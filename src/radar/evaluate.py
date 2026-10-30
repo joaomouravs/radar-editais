@@ -45,8 +45,26 @@ class FieldScore:
 
 
 @dataclass
+class Notice:
+    control_number: str
+    metadata: dict[str, Any]
+    items: list[dict[str, Any]]
+    pages: list[str]
+
+
+@dataclass
+class Prediction:
+    control_number: str
+    output: str | None  # validated NoticeExtraction as JSON, None when the run failed
+    tokens_in: int
+    tokens_out: int
+    latency_ms: int
+    error: str | None = None
+
+
+@dataclass
 class Report:
-    run_id: int
+    name: str
     model: str
     notices: int = 0
     failures: int = 0
@@ -109,42 +127,72 @@ def ground(quote: str, page: int, pages: list[str]) -> str:
     return "not_found"
 
 
-def evaluate(conn: sqlite3.Connection, run_id: int, annotations: Path = ANNOTATIONS) -> Report:
-    run = conn.execute("SELECT model FROM runs WHERE id = ?", (run_id,)).fetchone()
+def load_run(conn: sqlite3.Connection, run_id: int) -> tuple[dict[str, Any], list[Prediction]]:
+    """A run's description and its predictions, from the local database."""
+    run = conn.execute("SELECT * FROM runs WHERE id = ?", (run_id,)).fetchone()
     if run is None:
         raise ValueError(f"run {run_id} does not exist")
-    report = Report(run_id, run["model"])
     rows = conn.execute(
-        """
-        SELECT p.*, n.metadata, n.items FROM predictions p
-        JOIN notices n USING (control_number)
-        WHERE p.run_id = ? ORDER BY p.control_number
-        """,
-        (run_id,),
-    ).fetchall()
-    for row in rows:
-        report.notices += 1
-        if row["output"] is None:
-            report.failures += 1
-            continue
-        report.tokens_in.append(row["tokens_in"])
-        report.tokens_out.append(row["tokens_out"])
-        report.latency_ms.append(row["latency_ms"])
-        output = NoticeExtraction.model_validate_json(row["output"])
-        pages = [
-            r["text"]
-            for r in conn.execute(
-                "SELECT text FROM pages WHERE control_number = ? ORDER BY page",
-                (row["control_number"],),
-            )
-        ]
-        labels = expected(
-            row["control_number"],
+        "SELECT * FROM predictions WHERE run_id = ? ORDER BY control_number", (run_id,)
+    )
+    predictions = [
+        Prediction(
+            r["control_number"],
+            r["output"],
+            r["tokens_in"],
+            r["tokens_out"],
+            r["latency_ms"],
+            r["error"],
+        )
+        for r in rows
+    ]
+    return dict(run), predictions
+
+
+def load_notices(conn: sqlite3.Connection, numbers: list[str]) -> dict[str, Notice]:
+    notices = {}
+    for number in numbers:
+        row = conn.execute(
+            "SELECT metadata, items FROM notices WHERE control_number = ?", (number,)
+        ).fetchone()
+        pages = conn.execute(
+            "SELECT text FROM pages WHERE control_number = ? ORDER BY page", (number,)
+        )
+        notices[number] = Notice(
+            number,
             json.loads(row["metadata"]),
             json.loads(row["items"]),
-            pages,
-            annotations,
+            [p["text"] for p in pages],
         )
+    return notices
+
+
+def evaluate(conn: sqlite3.Connection, run_id: int, annotations: Path = ANNOTATIONS) -> Report:
+    run, predictions = load_run(conn, run_id)
+    notices = load_notices(conn, [p.control_number for p in predictions])
+    return score(f"Run {run_id}", run["model"], notices, predictions, annotations)
+
+
+def score(
+    name: str,
+    model: str,
+    notices: dict[str, Notice],
+    predictions: list[Prediction],
+    annotations: Path = ANNOTATIONS,
+) -> Report:
+    report = Report(name, model)
+    for prediction in predictions:
+        report.notices += 1
+        if prediction.output is None:
+            report.failures += 1
+            continue
+        report.tokens_in.append(prediction.tokens_in)
+        report.tokens_out.append(prediction.tokens_out)
+        report.latency_ms.append(prediction.latency_ms)
+        output = NoticeExtraction.model_validate_json(prediction.output)
+        notice = notices[prediction.control_number]
+        pages = notice.pages
+        labels = expected(notice.control_number, notice.metadata, notice.items, pages, annotations)
         for name in FIELDS:
             answer = getattr(output, name)
             if answer.evidence is not None and answer.value is not None:
@@ -160,7 +208,7 @@ def evaluate(conn: sqlite3.Connection, run_id: int, annotations: Path = ANNOTATI
             if result != "correct":
                 report.examples.append(
                     {
-                        "notice": row["control_number"],
+                        "notice": notice.control_number,
                         "field": name,
                         "outcome": result,
                         "label": label.value,
@@ -184,7 +232,7 @@ def _p(values: list[int], q: int) -> int:
 
 def to_markdown(report: Report) -> str:
     lines = [
-        f"## Run {report.run_id}: `{report.model}`",
+        f"## {report.name}: `{report.model}`",
         "",
         f"{report.notices} notices, {report.failures} without a valid answer.",
         "",
