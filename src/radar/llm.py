@@ -52,6 +52,8 @@ class Completion:
     content: str
     tokens_in: int
     tokens_out: int
+    # The request that answered, not the minutes spent waiting for a free-tier quota:
+    # that measures the provider's limits, not the model.
     latency_ms: int
     cached: bool
 
@@ -99,13 +101,12 @@ class ChatClient:
             hit = json.loads(path.read_text(encoding="utf-8"))
             return Completion(**hit, cached=True)
 
-        start = time.monotonic()
-        data = self._post(model, body)
+        data, latency_ms = self._post(model, body)
         completion = Completion(
             content=data["choices"][0]["message"]["content"] or "",
             tokens_in=data.get("usage", {}).get("prompt_tokens", 0),
             tokens_out=data.get("usage", {}).get("completion_tokens", 0),
-            latency_ms=round((time.monotonic() - start) * 1000),
+            latency_ms=latency_ms,
             cached=False,
         )
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -113,15 +114,17 @@ class ChatClient:
         path.write_text(json.dumps(stored, ensure_ascii=False), encoding="utf-8")
         return completion
 
-    def _post(self, model: Model, body: dict[str, Any]) -> dict[str, Any]:
-        """POST with retries. Free tiers answer 429 when the per-minute quota is spent,
-        and the wait they ask for in Retry-After is honoured."""
+    def _post(self, model: Model, body: dict[str, Any]) -> tuple[dict[str, Any], int]:
+        """POST with retries; returns the answer and how long the answering request took.
+        Free tiers answer 429 when the per-minute quota is spent, and the wait they ask
+        for is honoured."""
         base_url, env_var = PROVIDERS[model.provider]
         api_key = self._keys.get(env_var)
         if not api_key:
             raise LlmError(f"{env_var} is not set")
         attempt = 0
         while True:
+            start = time.monotonic()
             try:
                 resp = self._http.post(
                     f"{base_url}/chat/completions",
@@ -133,10 +136,11 @@ class ChatClient:
                     raise LlmError(f"{model.id}: {exc!r}") from exc
                 wait = 2.0**attempt
             else:
+                elapsed_ms = round((time.monotonic() - start) * 1000)
                 if resp.status_code == 200:
-                    return resp.json()
+                    return resp.json(), elapsed_ms
                 if rejected := _rejected_generation(resp):
-                    return rejected
+                    return rejected, elapsed_ms
                 if resp.status_code != 429 and resp.status_code < 500:
                     raise LlmError(f"{model.id}: HTTP {resp.status_code}: {resp.text[:500]}")
                 if attempt == self._retries:
