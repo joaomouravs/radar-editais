@@ -20,6 +20,10 @@ Rules:
 - For every non-null value, give the page it is on and a short verbatim quote copied \
 exactly from that page. Do not fix typos or change spacing in the quote.
 - When the document does not state a field, the value and the evidence are both null.
+- Only this document counts. A value the edital refers to another document for (such \
+as "as defined in the Termo de Referência") that is not included here is not stated.
+- Template clauses that only describe what happens if something applies do not mean \
+it applies.
 - When the edital and an annex disagree, the edital prevails."""
 
 # One answer that fails validation gets a second chance with the error in the prompt.

@@ -7,7 +7,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator
 
-PROMPT_VERSION = "1"
+# Bumped whenever the prompt or a field description changes, so runs stay comparable.
+PROMPT_VERSION = "2"
 
 
 class Evidence(BaseModel):
@@ -99,8 +100,9 @@ class SiteVisit(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     value: Literal["mandatory", "optional"] | None = Field(
-        description="Vistoria or visita técnica: 'mandatory' if bidders must visit, "
-        "'optional' if it is allowed but not required (facultativa). Null if not mentioned."
+        description="Vistoria or visita técnica by bidders: 'mandatory' if they must visit "
+        "and cannot replace it with a declaration; 'optional' if it is facultativa or can be "
+        "replaced by a declaration of knowing the site. Null if not mentioned."
     )
     evidence: Evidence | None
 
@@ -110,7 +112,8 @@ class Percentage(BaseModel):
 
     value: float | None = Field(
         description="Garantia de execução contratual as a percentage of the contract value "
-        "(5% is 5). Null if the edital does not require one."
+        "(5% is 5). Null if the edital does not require one or does not say. Ignore the "
+        "garantia de proposta."
     )
     evidence: Evidence | None
 
@@ -119,8 +122,9 @@ class Months(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     value: int | None = Field(
-        description="Initial term of the contract or of the ata de registro de preços, in "
-        "months (one year is 12). Null if not stated."
+        description="For a price registration (SRP), the term of the ata de registro de "
+        "preços; otherwise the initial term of the contract. In months, without extensions "
+        "(one year is 12). Null if not stated or only referred to another document."
     )
     evidence: Evidence | None
 
@@ -140,7 +144,9 @@ class NoticeExtraction(BaseModel):
     performance_guarantee_pct: Percentage
     contract_term_months: Months
     consortium_allowed: Flag = Field(
-        description="Whether companies may bid as a consortium (consórcio). Null if not mentioned."
+        description="Whether companies may bid as a consortium (consórcio): false if the "
+        "edital forbids it. A clause about who wrote the basic project is not about this. "
+        "Null if not mentioned."
     )
 
 

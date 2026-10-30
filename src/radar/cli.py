@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from datetime import date, datetime
 from pathlib import Path
 from typing import Annotated
@@ -8,16 +9,22 @@ import httpx
 import typer
 
 from radar import db
+from radar.annotate import KEYWORDS, QUESTIONS, parse_answer
+from radar.annotate import hits as keyword_hits
+from radar.annotate import sample as choose_sample
 from radar.evaluate import evaluate as score_run
 from radar.evaluate import to_markdown
 from radar.extract import extract as extract_notice
 from radar.extract import pages_of, save, start_run
 from radar.fetch import fetch as fetch_notices
+from radar.labels import ANNOTATIONS, GOLD_FIELDS, gold
 from radar.llm import ChatClient, Model
 from radar.parse import parse_pending
 from radar.pncp import PncpClient, new_http_client
 
 app = typer.Typer(no_args_is_help=True, add_completion=False)
+
+EVAL_SET = Path("annotations/eval_set.txt")
 
 DataDir = Annotated[Path, typer.Option(help="Where the database and the PDFs live.")]
 
@@ -92,6 +99,9 @@ def extract(
         list[str] | None, typer.Option(help="Control number; repeat for several.")
     ] = None,
     limit: Annotated[int | None, typer.Option(help="At most this many notices.")] = None,
+    eval_set: Annotated[
+        bool, typer.Option("--eval-set", help="Only the notices in annotations/eval_set.txt.")
+    ] = False,
     data_dir: DataDir = Path("data"),
 ) -> None:
     """Run the extraction over parsed notices and record it as a new run."""
@@ -102,6 +112,8 @@ def extract(
         row["control_number"]
         for row in conn.execute("SELECT DISTINCT control_number FROM pages ORDER BY control_number")
     ]
+    if eval_set:
+        numbers = EVAL_SET.read_text(encoding="utf-8").split()
     numbers = numbers[:limit] if limit else numbers
     run_id = start_run(conn, chosen, strategy="full")
     typer.echo(f"run {run_id}: {chosen.id} over {len(numbers)} notices")
@@ -144,3 +156,65 @@ def evaluate(
                 f"got {example['predicted']!r} p.{evidence.get('page')} "
                 f"{(evidence.get('quote') or '')[:100]!r}"
             )
+
+
+@app.command()
+def sample(
+    size: Annotated[int, typer.Option(help="How many notices.")] = 40,
+    data_dir: DataDir = Path("data"),
+) -> None:
+    """Choose the evaluation set and write it to annotations/eval_set.txt."""
+    conn = db.connect(data_dir / "radar.db")
+    chosen = choose_sample(conn, size)
+    EVAL_SET.parent.mkdir(exist_ok=True)
+    EVAL_SET.write_text("\n".join(chosen) + "\n", encoding="utf-8")
+    typer.echo(f"{len(chosen)} notices written to {EVAL_SET}")
+
+
+@app.command()
+def annotate(
+    annotator: Annotated[str, typer.Option(help="Your name, stored with each answer.")],
+    data_dir: DataDir = Path("data"),
+) -> None:
+    """Label the gold fields of every notice in the evaluation set, one at a time.
+
+    Answers are saved after each notice, so you can stop with Ctrl+C and resume later.
+    """
+    conn = db.connect(data_dir / "radar.db")
+    done = set(gold())
+    todo = [n for n in EVAL_SET.read_text(encoding="utf-8").split() if n not in done]
+    typer.echo(f"{len(done)} annotated, {len(todo)} to go. Rules: docs/annotation.md")
+    for position, number in enumerate(todo, 1):
+        row = conn.execute(
+            "SELECT metadata, pdf_sha256 FROM notices WHERE control_number = ?", (number,)
+        ).fetchone()
+        tender = json.loads(row["metadata"])
+        pages = pages_of(conn, number)
+        typer.secho(f"\n[{position}/{len(todo)}] {number}", bold=True)
+        typer.echo(f"{tender['orgaoEntidade']['razaoSocial']}")
+        typer.echo(f"{tender['objetoCompra'][:300]}")
+        typer.echo(f"PDF: {(data_dir / 'pdfs' / f'{row["pdf_sha256"]}.pdf').resolve()}")
+        typer.echo(f"{len(pages)} pages. Open the PDF whenever the passages are not enough.")
+
+        fields: dict[str, dict[str, object]] = {}
+        for name in GOLD_FIELDS:
+            typer.secho(f"\n{QUESTIONS[name]}", fg=typer.colors.CYAN)
+            for hit in keyword_hits(pages, KEYWORDS[name]):
+                typer.echo(f"  p.{hit.page}: {hit.snippet}")
+            while True:
+                valid, value = parse_answer(name, typer.prompt("  answer"))
+                if valid:
+                    break
+                typer.echo("  Not one of the options; try again.")
+            page = typer.prompt(
+                "  page that says so (Enter to skip)", default="", show_default=False
+            )
+            fields[name] = {"value": value, "page": int(page) if page.strip().isdigit() else None}
+        note = typer.prompt("Notes (Enter to skip)", default="", show_default=False)
+
+        entry = {"control_number": number, "annotator": annotator, "fields": fields}
+        if note:
+            entry["note"] = note
+        with (ANNOTATIONS / "gold.jsonl").open("a", encoding="utf-8") as out:
+            out.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        typer.secho("saved", fg=typer.colors.GREEN)
