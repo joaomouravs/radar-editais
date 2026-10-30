@@ -1,6 +1,7 @@
 # Radar de Editais: design
 
-Status: draft
+Status: implemented (M0 to M4). Deviations from the first draft are noted where they
+happened.
 
 ## Problem
 
@@ -90,10 +91,14 @@ Every field is returned as `{value, page, quote}`. A field the notice does not m
 is `null` with no evidence, and saying "not mentioned" correctly counts as a hit.
 
 **Silver labels** come free from the API metadata, so they scale to hundreds of notices
-with no annotation. They are not perfect (the PDF and the API can disagree, for example
+with no annotation. *(Changed after the first scores: the value and the closing date
+count only when the edital states them, because the API had them written in the PDF in
+only 3 and 2 of the first ten notices.)* They are not perfect (the PDF and the API can disagree, for example
 after an errata), and disagreements are reviewed by hand rather than assumed to be model
-errors. **Gold labels** cover the fields the API does not have; I annotate them by hand
-for about 40 notices, and the annotation file is versioned in the repository.
+errors. **Gold labels** cover the fields the API does not have, for the 40 notices of
+the evaluation set, and the annotation file is versioned in the repository. *(They were
+annotated by Claude, an LLM, reading each edital blind to the models' answers, under
+the rules in `annotation.md`; a human-reviewed sample is planned to measure agreement.)*
 
 ## Pipeline
 
@@ -123,11 +128,11 @@ minute, and sending the whole document for every field is slow and expensive at 
 price. So the project compares two strategies:
 
 - **full**: the whole document in one request (only for models with a large context).
-- **retrieve**: for each group of fields, select the few pages most likely to contain
-  the answer and send only those, each tagged with its page number. Selection starts
-  with keyword scoring (the notices follow the federal AGU template, so section titles
-  are predictable) and moves to embeddings only if the measurements show keywords are
-  missing pages.
+- **retrieve**: send excerpts around each field's keywords, one match per field in
+  turn, tagged with their page, about 12,000 characters in all (measured: that keeps
+  even a validation retry under Groq's 8,000 tokens a minute). Keywords work because
+  the notices follow the federal AGU template; embeddings come only if the
+  measurements show keywords missing passages.
 
 The question the evaluation answers: how much accuracy does retrieval cost, and how
 much money and time does it save?
@@ -167,4 +172,5 @@ standard library, Typer for the CLI, pytest, ruff and pyright.
 - **M1**: schema, prompt, `extract` with the full strategy, response cache.
 - **M2**: evaluation harness, silver labels, 40 gold annotations, first report.
 - **M3**: retrieve strategy, second model, comparison table in the README.
-- **M4**: questions with page citations, README with a demo, write-up.
+- **M4**: questions with page citations (`radar ask`, BM25 over chunks, every
+  citation checked), README, write-up.
