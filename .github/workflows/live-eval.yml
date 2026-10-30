@@ -1,0 +1,41 @@
+name: Live evaluation
+
+# Runs a model over the 40-notice evaluation set and scores it, from the committed
+# dataset (no PDFs needed). Manual only: it calls real APIs, and Groq's free tier allows
+# 8,000 tokens a minute, so a retrieve run takes about 40 minutes.
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: "provider:model[@reasoning], e.g. groq:openai/gpt-oss-120b@low"
+        required: true
+        default: gemini:gemini-3.5-flash-lite
+      strategy:
+        description: full sends the whole edital; retrieve sends keyword excerpts
+        type: choice
+        options: [retrieve, full]
+        default: retrieve
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - run: uv sync --locked
+      - run: uv run radar import-dataset
+      # Inputs go through the environment, never straight into the script.
+      - name: Extract
+        env:
+          MODEL: ${{ inputs.model }}
+          STRATEGY: ${{ inputs.strategy }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: uv run radar extract --model "$MODEL" --strategy "$STRATEGY" --eval-set
+      - run: uv run radar evaluate 1 >> "$GITHUB_STEP_SUMMARY"
+      - run: uv run radar export-run 1 live
+      - uses: actions/upload-artifact@v7
+        with:
+          name: live-run
+          path: evals/runs/live.json

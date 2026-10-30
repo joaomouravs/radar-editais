@@ -121,3 +121,32 @@ def build_report(
     for _, meta, report in scored:
         lines += ["", to_markdown(report), "", f"Prompt version {meta['prompt_version']}."]
     return "\n".join(lines) + "\n"
+
+
+def import_dataset(conn: sqlite3.Connection, path: Path = DATASET) -> int:
+    """Load the evaluation set into an empty database, for CI, where there are no PDFs."""
+    notices = load_dataset(path)
+    with conn:
+        for notice in notices.values():
+            meta = notice.metadata
+            conn.execute(
+                """
+                INSERT OR IGNORE INTO notices (control_number, cnpj, year, sequence,
+                    published_at, metadata, items, pdf_sha256, pdf_title)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'from-dataset', 'from-dataset')
+                """,
+                (
+                    notice.control_number,
+                    meta["orgaoEntidade"]["cnpj"],
+                    meta["anoCompra"],
+                    meta["sequencialCompra"],
+                    meta["dataPublicacaoPncp"],
+                    json.dumps(meta, ensure_ascii=False),
+                    json.dumps(notice.items, ensure_ascii=False),
+                ),
+            )
+            conn.executemany(
+                "INSERT OR IGNORE INTO pages (control_number, page, text) VALUES (?, ?, ?)",
+                [(notice.control_number, n, text) for n, text in enumerate(notice.pages, 1)],
+            )
+    return len(notices)

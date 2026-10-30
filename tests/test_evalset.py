@@ -3,8 +3,16 @@ from __future__ import annotations
 import json
 
 from radar import db
-from radar.evalset import build_report, export_dataset, export_run, load_dataset, load_runs
+from radar.evalset import (
+    build_report,
+    export_dataset,
+    export_run,
+    import_dataset,
+    load_dataset,
+    load_runs,
+)
 from radar.evaluate import Prediction
+from tests.helpers import fixture
 from tests.test_evaluate import ITEMS, METADATA, STATES_BOTH
 
 NUMBER = "42441758000105-1-000187/2026"
@@ -16,7 +24,7 @@ def database():
     conn.execute(
         "INSERT INTO notices (control_number, cnpj, year, sequence, published_at, metadata, "
         "items, pdf_sha256) VALUES (?, '1', 2026, 1, '2026-10-20', ?, ?, 'abc')",
-        (NUMBER, json.dumps(METADATA), json.dumps(ITEMS)),
+        (NUMBER, json.dumps({**fixture("tender.json"), **METADATA}), json.dumps(ITEMS)),
     )
     conn.executemany(
         "INSERT INTO pages VALUES (?, ?, ?)", [(NUMBER, 1, STATES_BOTH), (NUMBER, 2, "Fim.")]
@@ -85,3 +93,16 @@ def test_report_scores_the_files_alone(tmp_path):
     # The value is right; the five other silver fields are missed: 1 of 6.
     assert "| groq-m-retrieve | `groq:m` | retrieve | 1/1 | 17% | - | 100% | 5,000 |" in text
     assert text == build_report(tmp_path / "dataset.jsonl.gz", tmp_path / "runs", tmp_path)
+
+
+def test_import_dataset_rebuilds_what_extract_reads(tmp_path):
+    path = tmp_path / "dataset.jsonl.gz"
+    export_dataset(database(), [NUMBER], path)
+    fresh = db.connect(":memory:")
+
+    assert import_dataset(fresh, path) == 1
+    assert import_dataset(fresh, path) == 1  # running it twice changes nothing
+
+    pages = [r["text"] for r in fresh.execute("SELECT text FROM pages ORDER BY page")]
+    assert pages == [STATES_BOTH, "Fim."]
+    assert fresh.execute("SELECT cnpj FROM notices").fetchone()["cnpj"] == "42441758000105"

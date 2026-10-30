@@ -12,7 +12,14 @@ from radar import db
 from radar.annotate import KEYWORDS, QUESTIONS, parse_answer, parse_value
 from radar.annotate import hits as keyword_hits
 from radar.annotate import sample as choose_sample
-from radar.evalset import DATASET, REPORT, build_report, export_dataset, export_run
+from radar.evalset import (
+    DATASET,
+    REPORT,
+    build_report,
+    export_dataset,
+    export_run,
+    import_dataset,
+)
 from radar.evaluate import evaluate as score_run
 from radar.evaluate import to_markdown
 from radar.extract import STRATEGIES, pages_of, save, start_run
@@ -321,3 +328,11 @@ def report(
         return
     REPORT.write_text(text, encoding="utf-8", newline="\n")
     typer.echo(f"written {REPORT}")
+
+
+@app.command("import-dataset")
+def import_dataset_command(data_dir: DataDir = Path("data")) -> None:
+    """Load evals/dataset.jsonl.gz into the database, so extract works without PDFs."""
+    data_dir.mkdir(parents=True, exist_ok=True)
+    conn = db.connect(data_dir / "radar.db")
+    typer.echo(f"{import_dataset(conn)} notices loaded from {DATASET}")
