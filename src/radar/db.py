@@ -30,6 +30,29 @@ CREATE TABLE IF NOT EXISTS pages (
     text           TEXT    NOT NULL,
     PRIMARY KEY (control_number, page)
 );
+
+-- One run is one model with one prompt version and context strategy over many notices.
+CREATE TABLE IF NOT EXISTS runs (
+    id             INTEGER PRIMARY KEY,
+    model          TEXT NOT NULL,
+    strategy       TEXT NOT NULL,
+    prompt_version TEXT NOT NULL,
+    started_at     TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+);
+
+CREATE TABLE IF NOT EXISTS predictions (
+    run_id         INTEGER NOT NULL REFERENCES runs (id),
+    control_number TEXT    NOT NULL REFERENCES notices (control_number),
+    output         TEXT,              -- validated NoticeExtraction, NULL on failure
+    error          TEXT,
+    attempts       INTEGER NOT NULL,
+    tokens_in      INTEGER NOT NULL,
+    tokens_out     INTEGER NOT NULL,
+    latency_ms     INTEGER NOT NULL,  -- as first measured, even when served from cache
+    cached         INTEGER NOT NULL,
+    raw            TEXT    NOT NULL,  -- every answer the model gave, as a JSON list
+    PRIMARY KEY (run_id, control_number)
+);
 """
 
 

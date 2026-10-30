@@ -4,10 +4,14 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Annotated
 
+import httpx
 import typer
 
 from radar import db
+from radar.extract import extract as extract_notice
+from radar.extract import pages_of, save, start_run
 from radar.fetch import fetch as fetch_notices
+from radar.llm import ChatClient, Model
 from radar.parse import parse_pending
 from radar.pncp import PncpClient, new_http_client
 
@@ -75,3 +79,44 @@ def stats(data_dir: DataDir = Path("data")) -> None:
         "GROUP BY skip_reason ORDER BY n DESC"
     ):
         typer.echo(f"  skipped ({reason['skip_reason']}): {reason['n']}")
+
+
+@app.command()
+def extract(
+    model: Annotated[
+        str, typer.Option(help="provider:model[@reasoning], e.g. groq:openai/gpt-oss-120b@low.")
+    ],
+    notice: Annotated[
+        list[str] | None, typer.Option(help="Control number; repeat for several.")
+    ] = None,
+    limit: Annotated[int | None, typer.Option(help="At most this many notices.")] = None,
+    data_dir: DataDir = Path("data"),
+) -> None:
+    """Run the extraction over parsed notices and record it as a new run."""
+    conn = db.connect(data_dir / "radar.db")
+    chosen = Model.parse(model)
+    # Sorted by control number so that the same --limit always picks the same notices.
+    numbers = notice or [
+        row["control_number"]
+        for row in conn.execute("SELECT DISTINCT control_number FROM pages ORDER BY control_number")
+    ]
+    numbers = numbers[:limit] if limit else numbers
+    run_id = start_run(conn, chosen, strategy="full")
+    typer.echo(f"run {run_id}: {chosen.id} over {len(numbers)} notices")
+
+    ok = 0
+    # Thinking models answering about a 300-page edital can take minutes.
+    with httpx.Client(timeout=httpx.Timeout(600.0, connect=10.0)) as http:
+        client = ChatClient(http, data_dir / "cache")
+        for number in numbers:
+            pages = pages_of(conn, number)
+            result = extract_notice(client, chosen, pages)
+            save(conn, run_id, number, result)
+            ok += result.output is not None
+            status = "ok" if result.output else f"FAILED: {(result.error or '')[:120]}"
+            typer.echo(
+                f"  {number}  {len(pages):>3} pages  {result.tokens_in:>7} in "
+                f"{result.tokens_out:>5} out  {result.latency_ms / 1000:>6.1f}s"
+                f"{'  cached' if result.cached else ''}  {status}"
+            )
+    typer.echo(f"run {run_id}: {ok}/{len(numbers)} valid")
