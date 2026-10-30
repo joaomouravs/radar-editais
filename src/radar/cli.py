@@ -14,8 +14,8 @@ from radar.annotate import hits as keyword_hits
 from radar.annotate import sample as choose_sample
 from radar.evaluate import evaluate as score_run
 from radar.evaluate import to_markdown
+from radar.extract import STRATEGIES, pages_of, save, start_run
 from radar.extract import extract as extract_notice
-from radar.extract import pages_of, save, start_run
 from radar.fetch import fetch as fetch_notices
 from radar.labels import ANNOTATIONS, GOLD_FIELDS, gold
 from radar.llm import ChatClient, Model
@@ -112,6 +112,9 @@ def extract(
     eval_set: Annotated[
         bool, typer.Option("--eval-set", help="Only the notices in annotations/eval_set.txt.")
     ] = False,
+    strategy: Annotated[
+        str, typer.Option(help="full: the whole edital; retrieve: excerpts around keywords.")
+    ] = "full",
     data_dir: DataDir = Path("data"),
 ) -> None:
     """Run the extraction over parsed notices and record it as a new run."""
@@ -125,8 +128,10 @@ def extract(
     if eval_set:
         numbers = EVAL_SET.read_text(encoding="utf-8").split()
     numbers = numbers[:limit] if limit else numbers
-    run_id = start_run(conn, chosen, strategy="full")
-    typer.echo(f"run {run_id}: {chosen.id} over {len(numbers)} notices")
+    if strategy not in STRATEGIES:
+        raise typer.BadParameter(f"strategy must be one of {', '.join(STRATEGIES)}")
+    run_id = start_run(conn, chosen, strategy=strategy)
+    typer.echo(f"run {run_id}: {chosen.id}, {strategy}, over {len(numbers)} notices")
 
     ok = 0
     # Thinking models answering about a 300-page edital can take minutes.
@@ -134,7 +139,7 @@ def extract(
         client = ChatClient(http, data_dir / "cache")
         for number in numbers:
             pages = pages_of(conn, number)
-            result = extract_notice(client, chosen, pages)
+            result = extract_notice(client, chosen, pages, strategy)
             save(conn, run_id, number, result)
             ok += result.output is not None
             status = "ok" if result.output else f"FAILED: {(result.error or '')[:120]}"

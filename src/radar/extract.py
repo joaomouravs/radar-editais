@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 
 from pydantic import ValidationError
 
+from radar import retrieve
 from radar.llm import ChatClient, LlmError, Model
 from radar.schema import PROMPT_VERSION, NoticeExtraction, strict_json_schema
 
@@ -25,6 +26,13 @@ as "as defined in the Termo de Referência") that is not included here is not st
 - Template clauses that only describe what happens if something applies do not mean \
 it applies.
 - When the edital and an annex disagree, the edital prevails."""
+
+EXCERPTS_NOTE = """
+
+Only excerpts of the edital are given, still tagged with the page they come from; \
+[...] marks text left out. A field that is not in the excerpts is not stated."""
+
+STRATEGIES = ("full", "retrieve")
 
 # One answer that fails validation gets a second chance with the error in the prompt.
 MAX_ATTEMPTS = 2
@@ -46,10 +54,17 @@ def render_pages(pages: list[str]) -> str:
     return "\n".join(f"<page {n}>\n{text.strip()}\n</page {n}>" for n, text in enumerate(pages, 1))
 
 
-def extract(client: ChatClient, model: Model, pages: list[str]) -> Result:
+def extract(client: ChatClient, model: Model, pages: list[str], strategy: str = "full") -> Result:
+    if strategy == "full":
+        system, document = SYSTEM_PROMPT, render_pages(pages)
+    elif strategy == "retrieve":
+        system = SYSTEM_PROMPT + EXCERPTS_NOTE
+        document = retrieve.render(pages, retrieve.select(pages))
+    else:
+        raise ValueError(f"unknown strategy {strategy!r}")
     messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": render_pages(pages)},
+        {"role": "system", "content": system},
+        {"role": "user", "content": document},
     ]
     result = Result(output=None)
     for _ in range(MAX_ATTEMPTS):

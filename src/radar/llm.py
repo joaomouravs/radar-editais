@@ -135,6 +135,8 @@ class ChatClient:
             else:
                 if resp.status_code == 200:
                     return resp.json()
+                if rejected := _rejected_generation(resp):
+                    return rejected
                 if resp.status_code != 429 and resp.status_code < 500:
                     raise LlmError(f"{model.id}: HTTP {resp.status_code}: {resp.text[:500]}")
                 if attempt == self._retries:
@@ -145,6 +147,22 @@ class ChatClient:
                 )
             self._sleep(wait)
             attempt += 1
+
+
+def _rejected_generation(resp: httpx.Response) -> dict[str, Any] | None:
+    """Groq checks strict output against the schema itself and answers 400 with the
+    rejected JSON in failed_generation. Handing that JSON back as an ordinary answer
+    lets it fail validation here and get the same retry, with the error, as any other
+    invalid answer. Token usage is not reported for it."""
+    if resp.status_code != 400:
+        return None
+    try:
+        error = resp.json().get("error", {})
+    except ValueError:
+        return None
+    if error.get("code") != "json_validate_failed" or "failed_generation" not in error:
+        return None
+    return {"choices": [{"message": {"content": error["failed_generation"]}}], "usage": {}}
 
 
 def _retry_after(resp: httpx.Response) -> float | None:

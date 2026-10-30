@@ -207,3 +207,25 @@ def test_rate_limits_read_gemini_retry_delay_or_wait_most_of_a_minute(tmp_path):
 
     assert extract(client(provider, tmp_path, sleeps), MODEL, PAGES).output is not None
     assert sleeps == [37.0, 30.0]
+
+
+def test_a_generation_groq_rejects_gets_the_usual_retry(tmp_path):
+    rejected = answer(estimated_value={"value": 1.0, "evidence": {"page": None, "quote": "x"}})
+    groq_400 = httpx.Response(
+        400,
+        json={
+            "error": {
+                "message": "Generated JSON does not match the expected schema.",
+                "code": "json_validate_failed",
+                "failed_generation": rejected,
+            }
+        },
+    )
+    provider = FakeProvider(groq_400, VALID)
+    groq = Model.parse("groq:openai/gpt-oss-120b@low")
+
+    result = extract(client(provider, tmp_path), groq, PAGES)
+
+    assert result.output is not None and result.attempts == 2
+    assert result.raw[0] == rejected
+    assert "page" in provider.requests[1]["messages"][3]["content"]
