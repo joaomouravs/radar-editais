@@ -8,7 +8,7 @@ from typing import Annotated
 import httpx
 import typer
 
-from radar import db
+from radar import db, retrieve
 from radar.annotate import KEYWORDS, QUESTIONS, parse_answer, parse_value
 from radar.annotate import hits as keyword_hits
 from radar.annotate import sample as choose_sample
@@ -139,7 +139,9 @@ def extract(
     numbers = numbers[:limit] if limit else numbers
     if strategy not in STRATEGIES:
         raise typer.BadParameter(f"strategy must be one of {', '.join(STRATEGIES)}")
-    run_id = start_run(conn, chosen, strategy=strategy)
+    # The excerpts change with the retrieval version, so it is part of the strategy name.
+    label = strategy if strategy == "full" else f"{strategy} v{retrieve.VERSION}"
+    run_id = start_run(conn, chosen, strategy=label)
     typer.echo(f"run {run_id}: {chosen.id}, {strategy}, over {len(numbers)} notices")
 
     ok = 0

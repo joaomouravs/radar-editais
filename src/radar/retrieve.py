@@ -15,18 +15,62 @@ from dataclasses import dataclass
 
 from radar.annotate import fold
 
-# Keywords are matched lowercase and without accents.
-FIELD_KEYWORDS = {
-    "estimated_value": ["valor estimado", "valor total", "valor global", "valor maximo"],
-    "proposal_deadline": ["sessao publica", "data de abertura", "envio de propostas"],
-    "award_criterion": ["criterio de julgamento"],
-    "dispute_mode": ["modo de disputa"],
-    "price_registration": ["registro de precos"],
-    "small_business": ["exclusiva", "exclusivo", "cota reservada", "cota de ate"],
-    "site_visit": ["vistoria", "visita tecnica"],
-    "performance_guarantee_pct": ["garantia de execucao", "garantia contratual", "garantia da"],
-    "contract_term_months": ["vigencia"],
-    "consortium_allowed": ["consorcio"],
+# Bumped whenever the selection changes, so runs over different excerpts stay apart.
+VERSION = "2"
+
+# Per field, patterns in priority order, matched on lowercase text without accents.
+# Version 1 took the first four matches of one generic keyword per field, and the page
+# that settles the answer was sent for only 16 of 31 contract terms and 2 of 5
+# guarantees: "vigência" mostly appears in boilerplate ("durante a vigência do
+# contrato") long before the clause that states the term. So the strong patterns look
+# for the shape of the deciding clause (the keyword near a number, a percentage or a
+# yes/no word) and the generic keyword only fills what is left.
+_NUMBER = (
+    r"(\d+(,\d+)?\s*\(|\(\w+\)\s*(meses|mes|ano|anos|dias)|\d+\s*(meses|ano|anos|dias)"
+    r"|\b(um|dois|tres|doze) (ano|anos|meses)\b)"
+)
+FIELD_PATTERNS: dict[str, list[str]] = {
+    "estimated_value": [
+        r"valor (total |global |maximo )?(estimad\w|global|maximo|total).{0,80}r\$",
+        r"valor (estimado|total|global|maximo)",
+    ],
+    "proposal_deadline": [
+        r"(sessao publica|abertura|envio de propostas|recebimento das propostas).{0,120}"
+        r"\d{1,2}/\d{1,2}/20\d\d",
+        r"sessao publica|data de abertura|envio de propostas",
+    ],
+    "award_criterion": [r"criterio de julgamento"],
+    "dispute_mode": [r"modo de disputa"],
+    "price_registration": [r"(sistema de|para) registro de precos", r"registro de precos"],
+    "small_business": [
+        r"(exclusiv\w*|cota reservada|cota de ate).{0,80}(microempresa|me/epp|mei)",
+        r"(microempresa|me/epp).{0,80}exclusiv",
+        r"exclusiva|exclusivo|cota reservada|cota de ate",
+    ],
+    "site_visit": [
+        r"(vistoria|visita tecnica).{0,200}"
+        r"(facultativ|faculdade|obrigatori|opt[ae]|nao se aplica|substitu|sob pena)",
+        r"(facultativ|obrigatori).{0,80}(vistoria|visita tecnica)",
+        r"vistoria|visita tecnica",
+    ],
+    "performance_guarantee_pct": [
+        r"garantia (de execucao|contratual|da contratacao|do contrato).{0,200}"
+        r"(\d+(,\d+)?\s*%|nao havera|nao sera|dispensad)",
+        r"garantia.{0,120}\d+(,\d+)?\s*%",
+        r"(nao havera|nao sera) exig\w+ (da |de )?garantia",
+        r"\d+(,\d+)?\s*%.{0,80}garantia",
+        r"garantia de execucao|garantia contratual",
+    ],
+    "contract_term_months": [
+        r"(prazo de vigencia|vigencia (da|do|de)|validade da ata|vigorara).{0,120}" + _NUMBER,
+        r"ata de registro de precos (tera|sera|vigorara).{0,60}(vigencia|validade)",
+        r"prazo de vigencia|vigencia da ata|validade da ata",
+    ],
+    "consortium_allowed": [
+        r"(vedad\w|nao sera (admitid|permitid)\w*|sera (admitid|permitid)\w*).{0,80}consorcio",
+        r"reunidas em consorcio|participacao (de empresas )?em consorcio",
+        r"consorcio",
+    ],
 }
 
 # Measured on Groq: 15,000 characters of excerpts made a 5,600-token prompt (the
@@ -54,13 +98,18 @@ def select(pages: list[str], budget: int = BUDGET_CHARS) -> list[Span]:
     spans = [Span(1, 0, min(PREAMBLE_CHARS, len(pages[0])))] if pages else []
     folded = [fold(text) for text in pages]
     queues = []
-    for keywords in FIELD_KEYWORDS.values():
-        pattern = re.compile("|".join(re.escape(k) for k in keywords))
-        matches = [
-            Span(n, max(0, m.start() - WINDOW_CHARS), min(len(text), m.end() + WINDOW_CHARS))
-            for n, text in enumerate(folded, 1)
-            for m in pattern.finditer(text)
-        ]
+    for patterns in FIELD_PATTERNS.values():
+        matches: list[Span] = []
+        seen: set[tuple[int, int]] = set()
+        # Every match of the first pattern, then of the second..., each in page order.
+        for pattern in map(lambda p: re.compile(p, re.S), patterns):
+            for n, text in enumerate(folded, 1):
+                for m in pattern.finditer(text):
+                    if (n, m.start()) in seen:
+                        continue
+                    seen.add((n, m.start()))
+                    start = max(0, m.start() - WINDOW_CHARS)
+                    matches.append(Span(n, start, min(len(text), m.end() + WINDOW_CHARS)))
         queues.append(matches[:MATCHES_PER_FIELD])
 
     while any(queues):

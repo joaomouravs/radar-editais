@@ -15,6 +15,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
+from radar import retrieve
 from radar.evaluate import (
     Notice,
     Prediction,
@@ -86,6 +87,33 @@ def _p(values: list[int], q: float) -> int:
     return ordered[min(len(ordered) - 1, int(q * len(ordered)))] if ordered else 0
 
 
+def retrieval_recall(
+    notices: dict[str, Notice], annotations: Path = ANNOTATIONS
+) -> dict[str, tuple[int, int]]:
+    """Per gold field, in how many notices the page that settles the answer is among the
+    excerpts the retrieve strategy sends: (sent, notices with a settling page)."""
+    gold_pages = _gold_pages(annotations)
+    recall = {}
+    for field in GOLD_FIELDS:
+        sent = total = 0
+        for number, notice in notices.items():
+            page = gold_pages.get(number, {}).get(field, {}).get("page")
+            if page is None:
+                continue
+            total += 1
+            sent += any(s.page == page for s in retrieve.select(notice.pages))
+        recall[field] = (sent, total)
+    return recall
+
+
+def _gold_pages(annotations: Path) -> dict[str, dict[str, dict[str, Any]]]:
+    path = annotations / "gold.jsonl"
+    if not path.exists():
+        return {}
+    lines = path.read_text(encoding="utf-8").splitlines()
+    return {e["control_number"]: e["fields"] for e in map(json.loads, filter(None, lines))}
+
+
 def build_report(
     dataset: Path = DATASET, runs: Path = RUNS, annotations: Path = ANNOTATIONS
 ) -> str:
@@ -118,6 +146,20 @@ def build_report(
             f"| {_p(report.latency_ms, 0.5) / 1000:.1f}s "
             f"/ {_p(report.latency_ms, 0.95) / 1000:.1f}s |"
         )
+    recall = retrieval_recall(notices, annotations)
+    lines += [
+        "",
+        f"## Retrieval (version {retrieve.VERSION})",
+        "",
+        "How often the page that settles a gold label is among the excerpts the retrieve",
+        "strategy sends. The patterns were tuned on these same notices, so this is an",
+        "optimistic estimate of how retrieval does on unseen editais.",
+        "",
+        "| Field | Settling page sent |",
+        "| --- | --: |",
+    ]
+    for field, (sent, total) in recall.items():
+        lines.append(f"| `{field}` | {sent}/{total} |")
     for _, meta, report in scored:
         lines += ["", to_markdown(report), "", f"Prompt version {meta['prompt_version']}."]
     return "\n".join(lines) + "\n"

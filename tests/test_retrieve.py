@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from radar import retrieve
 from radar.retrieve import Span, render, select
 
@@ -47,3 +49,39 @@ def test_render_marks_gaps_and_keeps_page_numbers():
     pages = ["abcdefghij", "0123456789"]
     text = render(pages, [Span(2, 0, 3), Span(2, 6, 9), Span(1, 0, 2)])
     assert text == "<page 1>\nab\n</page 1>\n<page 2>\n012\n[...]\n678\n</page 2>"
+
+
+def test_the_deciding_clause_beats_earlier_boilerplate():
+    boilerplate = "Manter durante a vigência do contrato as condições de habilitação. " * 3
+    pages = [FILLER] + [boilerplate + FILLER for _ in range(6)]
+    pages.append(
+        FILLER + "11.8. O prazo de vigência da ata de registro de preços será de 1 (um) ano."
+    )
+
+    text = render(pages, select(pages))
+
+    assert "será de 1 (um) ano" in text
+
+
+def test_retrieval_recall_counts_settling_pages(tmp_path):
+    from radar.evalset import retrieval_recall
+    from radar.evaluate import Notice
+
+    notice = Notice("X-1/2026", {}, [], PAGES)
+    entry = {
+        "control_number": "X-1/2026",
+        "fields": {
+            "site_visit": {"value": "optional", "page": 2},
+            "performance_guarantee_pct": {"value": None, "page": None},
+            "contract_term_months": {"value": 12, "page": 3},
+            "consortium_allowed": {"value": False, "page": 4},
+        },
+    }
+    (tmp_path / "gold.jsonl").write_text(json.dumps(entry) + "\n", encoding="utf-8")
+
+    recall = retrieval_recall({"X-1/2026": notice}, tmp_path)
+
+    assert recall["site_visit"] == (1, 1)
+    assert recall["performance_guarantee_pct"] == (0, 0)
+    assert recall["contract_term_months"] == (0, 1)  # page 3 has no keyword
+    assert recall["consortium_allowed"] == (1, 1)

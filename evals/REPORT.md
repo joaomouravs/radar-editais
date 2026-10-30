@@ -7,3 +7,68 @@ disagree); gold labels are annotated, see `docs/annotation.md`.
 
 | Run | Model | Strategy | Valid | Silver fields | Gold fields | Quotes on page | Tokens in (p50) | Latency p50 / p95 |
 | --- | --- | --- | --: | --: | --: | --: | --: | --: |
+| gemini-flash-lite-full | `gemini:gemini-3.5-flash-lite` | full | 40/40 | 90% | 92% | 96% | 42,399 | 3.2s / 63.3s |
+| gemini-flash-lite-retrieve-v1 | `gemini:gemini-3.5-flash-lite` | retrieve v1 | 40/40 | 82% | 82% | 98% | 3,833 | 2.2s / 3.0s |
+
+## Retrieval (version 2)
+
+How often the page that settles a gold label is among the excerpts the retrieve
+strategy sends. The patterns were tuned on these same notices, so this is an
+optimistic estimate of how retrieval does on unseen editais.
+
+| Field | Settling page sent |
+| --- | --: |
+| `site_visit` | 11/11 |
+| `performance_guarantee_pct` | 4/5 |
+| `contract_term_months` | 28/31 |
+| `consortium_allowed` | 23/23 |
+
+## gemini-flash-lite-full: `gemini:gemini-3.5-flash-lite`
+
+40 notices, 0 without a valid answer.
+
+| Field | Labelled | Accuracy | Baseline | Wrong | Missed | Invented | Labels |
+| --- | --: | --: | --: | --: | --: | --: | --- |
+| `estimated_value` | 27 | 96% | 4% | 1 | 0 | 0 | 26 silver, 1 override |
+| `proposal_deadline` | 19 | 100% | 16% | 0 | 0 | 0 | 19 silver |
+| `award_criterion` | 40 | 100% | 95% | 0 | 0 | 0 | 40 silver |
+| `dispute_mode` | 40 | 90% | 65% | 3 | 1 | 0 | 40 silver |
+| `price_registration` | 40 | 95% | 50% | 1 | 1 | 0 | 40 silver |
+| `small_business` | 40 | 68% | 57% | 13 | 0 | 0 | 40 silver |
+| `site_visit` | 40 | 100% | 72% | 0 | 0 | 0 | 40 gold |
+| `performance_guarantee_pct` | 40 | 100% | 88% | 0 | 0 | 0 | 40 gold |
+| `contract_term_months` | 40 | 92% | 62% | 1 | 2 | 0 | 40 gold |
+| `consortium_allowed` | 40 | 78% | 42% | 0 | 0 | 9 | 40 gold |
+
+Overall: 91% of 366 labelled fields.
+
+Evidence: 281 quotes, 96% on the cited page, 5 on another page, 7 not in the document.
+
+Tokens per valid answer: p50 40866 in, 650 out. Latency: p50 3.2s, p95 52.5s.
+
+Prompt version 3.
+
+## gemini-flash-lite-retrieve-v1: `gemini:gemini-3.5-flash-lite`
+
+40 notices, 0 without a valid answer.
+
+| Field | Labelled | Accuracy | Baseline | Wrong | Missed | Invented | Labels |
+| --- | --: | --: | --: | --: | --: | --: | --- |
+| `estimated_value` | 27 | 85% | 4% | 1 | 3 | 0 | 26 silver, 1 override |
+| `proposal_deadline` | 19 | 95% | 16% | 1 | 0 | 0 | 19 silver |
+| `award_criterion` | 40 | 100% | 95% | 0 | 0 | 0 | 40 silver |
+| `dispute_mode` | 40 | 90% | 65% | 3 | 1 | 0 | 40 silver |
+| `price_registration` | 40 | 72% | 50% | 1 | 10 | 0 | 40 silver |
+| `small_business` | 40 | 57% | 57% | 9 | 8 | 0 | 40 silver |
+| `site_visit` | 40 | 95% | 72% | 0 | 2 | 0 | 40 gold |
+| `performance_guarantee_pct` | 40 | 95% | 88% | 0 | 2 | 0 | 40 gold |
+| `contract_term_months` | 40 | 55% | 62% | 1 | 17 | 0 | 40 gold |
+| `consortium_allowed` | 40 | 85% | 42% | 0 | 1 | 5 | 40 gold |
+
+Overall: 82% of 366 labelled fields.
+
+Evidence: 243 quotes, 98% on the cited page, 0 on another page, 4 not in the document.
+
+Tokens per valid answer: p50 3827 in, 572 out. Latency: p50 2.2s, p95 3.0s.
+
+Prompt version 3.

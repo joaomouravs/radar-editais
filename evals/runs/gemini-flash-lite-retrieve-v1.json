@@ -1,0 +1,327 @@
+{
+ "model": "gemini:gemini-3.5-flash-lite",
+ "strategy": "retrieve v1",
+ "prompt_version": "3",
+ "predictions": [
+  {
+   "control_number": "00394429000100-1-002754/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":3,\"quote\":\"critério de julgamento Menor Preço\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":9,\"quote\":\"7.10. O procedimento seguirá de acordo com o modo de disputa aberto e fechado.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":3,\"quote\":\"realizará \\nlicitação, para registro de preços, na modalidade Pregão Eletrônico\"}},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"3.7.11. pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3731,
+   "tokens_out": 393,
+   "latency_ms": 2313,
+   "error": null
+  },
+  {
+   "control_number": "00394452000103-1-022620/2026",
+   "output": "{\"estimated_value\":{\"value\":44880.0,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL \\nR$ 44.880,00\"}},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"highest_discount\",\"evidence\":{\"page\":2,\"quote\":\"Critério de Julgamento:\\nmaior desconto por item\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":2,\"quote\":\"Modo de disputa:\\naberto\"}},\"price_registration\":{\"value\":false,\"evidence\":{\"page\":3,\"quote\":\"2.1 Não será usado o Registro de Preços.\"}},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":2,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\nNÃO\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":16,\"quote\":\"9.10.2. Caso o licitante opte por não realizar vistoria, poderá substituir a declaração exigida no presente item por declaração formal assinada pelo seu responsável técnico acerca do conhecimento pleno das condições e peculiaridades da contratação.\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3818,
+   "tokens_out": 491,
+   "latency_ms": 2265,
+   "error": null
+  },
+  {
+   "control_number": "00394452000103-1-022669/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"com critério de julgamento Menor Preço\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":6,\"quote\":\"7.10. O procedimento seguirá de acordo com o modo de disputa aberto e fechado.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"realizará licitação, para registro de preços, na modalidade Pregão Eletrônico\"}},\"small_business\":{\"value\":\"partial\",\"evidence\":{\"page\":2,\"quote\":\"3.6. A participação é exclusiva a microempresas e empresas de pequeno porte, nos termos do art. 48 da Lei Complementar nº 123, de 14 de dezembro de 2006, exceto para os itens 2, 26, 70 e 72.\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3659,
+   "tokens_out": 445,
+   "latency_ms": 1891,
+   "error": null
+  },
+  {
+   "control_number": "00394452000103-1-022672/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"modalidade Pregão Eletrônico, na forma Eletrônica, com critério de julgamento Menor Preço\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":6,\"quote\":\"7.10. O procedimento seguirá de acordo com o modo de disputa aberto e fechado.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"realizará licitação, para registro de preços, na\"}},\"small_business\":{\"value\":\"partial\",\"evidence\":{\"page\":2,\"quote\":\"3.6. Para os itens Todos, exceto 2 e 72 a participação é exclusiva a microempresas e empresas de pequeno porte\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3786,
+   "tokens_out": 414,
+   "latency_ms": 3000,
+   "error": null
+  },
+  {
+   "control_number": "00394502000144-1-014023/2026",
+   "output": "{\"estimated_value\":{\"value\":42575.36,\"evidence\":{\"page\":2,\"quote\":\"R$ 42.575,36\"}},\"proposal_deadline\":{\"value\":\"2026-11-09T10:00\",\"evidence\":{\"page\":2,\"quote\":\"Dia 09/11/2026 às 10h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":2,\"quote\":\"Menor preço por por grupo\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":2,\"quote\":\"Modo de disputa:\\nAberto\"}},\"price_registration\":{\"value\":false,\"evidence\":{\"page\":3,\"quote\":\"2.1. A presente licitação não ensejará registro de preços\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":3,\"quote\":\"3.6. Para os itens 01 e 02, a participação é exclusiva a microempresas e empresas de pequeno porte, nos termos do\\nart. 48 da Lei Complementar nº 123, de 14 de dezembro de 2006.\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":16,\"quote\":\"9.10.2. Caso o licitante opte por não realizar vistoria, poderá substituir a declaração exigida no presente item\\npor declaração formal assinada pelo seu responsável técnico acerca do conhecimento pleno das condições e\\npeculiaridades da contratação.\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3726,
+   "tokens_out": 589,
+   "latency_ms": 2203,
+   "error": null
+  },
+  {
+   "control_number": "00394502000144-1-014031/2026",
+   "output": "{\"estimated_value\":{\"value\":279623.0,\"evidence\":{\"page\":2,\"quote\":\"R$ 279.623,00\"}},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":2,\"quote\":\"Critério de Julgamento:\\n[menor preço]\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":2,\"quote\":\"Modo de disputa:\\n [aberto e fechado]\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"Registro de Preços para aquisição de um carrinho guincho para ponte rolante de 10 toneladas\"}},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":2,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\n[NÃO]\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":14,\"quote\":\"o licitante deve atestar, sob pena de inabilitação, que conhece o local e as condições de realização do serviço, assegurado a ele o direito de realização de vistoria prévia.\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"3.7.12. pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3698,
+   "tokens_out": 529,
+   "latency_ms": 1859,
+   "error": null
+  },
+  {
+   "control_number": "00394502000144-1-014033/2026",
+   "output": "{\"estimated_value\":{\"value\":987098.0,\"evidence\":{\"page\":2,\"quote\":\"R$ 987.098,00 (Novecentos e oitenta e sete mil e noventa e oito reais)\"}},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":2,\"quote\":\"Critério de Julgamento:\\nmenor preço por item\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":2,\"quote\":\"Modo de disputa:\\naberto\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":2,\"quote\":\"realizar licitação, para registro de preços, na modalidade \\nPREGÃO ELETRÔNICO\"}},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":2,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\nNÃO\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":14,\"quote\":\"o licitante deve atestar, sob pena de inabilitação, que conhece o local e as condições de realização do serviço, assegurado a ele o direito de realização de vistoria prévia.\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3889,
+   "tokens_out": 506,
+   "latency_ms": 1859,
+   "error": null
+  },
+  {
+   "control_number": "00394544000185-1-002303/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO\\nSIGILOSO\"}},\"proposal_deadline\":{\"value\":\"2026-10-29T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 29/10/2026 às 10h (Horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO:\\nMENOR PREÇO POR ITEM E GRUPO\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"MODO DE DISPUTA:\\nABERTO E FECHADO\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"OBJETO\\nREGISTRO DE PREÇOS AQUISIÇÃO DO MATERIAL\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":4,\"quote\":\"3.6. Para TODOS os itens,, a participação é exclusiva a microempresas e empresas de pequeno porte, \\nnos termos do art. 48 da Lei Complementar nº 123, de 14 de dezembro de 2006.\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":39,\"quote\":\"11.1. Não haverá exigência de garantia contratual da execução.\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":5,\"quote\":\"3.9.11 pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3777,
+   "tokens_out": 601,
+   "latency_ms": 2047,
+   "error": null
+  },
+  {
+   "control_number": "00394544000185-1-002305/2026",
+   "output": "{\"estimated_value\":{\"value\":5696575.02,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO\\nR$ 5.696.575,02 (CINCO MILHÕES, SEISCENTOS E NOVENTA E SEIS \\nMIL, QUINHENTOS E SETENTA E CINCO REAIS E DOIS CENTAVOS)\"}},\"proposal_deadline\":{\"value\":\"2026-11-09T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 09/11/2026 às 10:00h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO: \\nmenor preço por item\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"MODO DE DISPUTA:\\naberto e fechado\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":1,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS \\nNÃO\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":18,\"quote\":\"8.9. A avaliação prévia do local de execução para o conhecimento pleno das condições e \\npeculiaridades do objeto a ser contratado é facultativa\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"2.7.12 pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3753,
+   "tokens_out": 606,
+   "latency_ms": 2297,
+   "error": null
+  },
+  {
+   "control_number": "00394544000185-1-003231/2025",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO\\nSIGILOSO\"}},\"proposal_deadline\":{\"value\":\"2026-11-04T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 04/11/2026 às 10h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO:\\nmenor preço por grupo\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"MODO DE DISPUTA:\\naberto e fechado\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"REGISTRO DE PREÇOS AQUISIÇÃO DE IMPLANTES ORTOPÉDICOS EM\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":1,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\nSIM\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":43,\"quote\":\"11.1. Não haverá exigência de garantia contratual da execução.\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"3.7.11 pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3805,
+   "tokens_out": 560,
+   "latency_ms": 1953,
+   "error": null
+  },
+  {
+   "control_number": "00396895000125-1-000453/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":\"2026-10-30T10:00\",\"evidence\":{\"page\":1,\"quote\":\"Data da Sessão Pública: 30/10/2026\\nHora Inicial: 10:00\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"na modalidade\\nPregão Eletrônico, na forma Eletrônica, com critério de julgamento Menor Preço\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":7,\"quote\":\"6.10. O procedimento seguirá de acordo com o modo de disputa aberto.\"}},\"price_registration\":{\"value\":false,\"evidence\":null},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":5.0,\"evidence\":{\"page\":27,\"quote\":\"Será exigida garantia para a contratação, nos termos dos arts. 96 a 102 da Lei nº 14.133/2021, em valor \\ncorrespondente a 5% (cinco por cento) do valor inicial do contrato\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3588,
+   "tokens_out": 475,
+   "latency_ms": 2344,
+   "error": null
+  },
+  {
+   "control_number": "00489828000155-1-000631/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":\"2026-11-11T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA: 11/11/2026\\nHORA INICIAL: 10:00\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"critério de\\njulgamento MENOR PREÇO\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":8,\"quote\":\"6.10. O procedimento seguirá de acordo com o modo de disputa aberto.\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3235,
+   "tokens_out": 386,
+   "latency_ms": 1766,
+   "error": null
+  },
+  {
+   "control_number": "00509968000148-1-003606/2026",
+   "output": "{\"estimated_value\":{\"value\":42624.99,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO\\nR$ 42.624,99\"}},\"proposal_deadline\":{\"value\":\"2026-11-05T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 05/11/2026 às 10 h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO:\\nMenor preço\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":8,\"quote\":\"7.9 Será adotado o MODO DE DISPUTA ABERTO\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":3,\"quote\":\"3.3. Para o item, a participação é EXCLUSIVA a microempresas e empresas de pequeno porte\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3555,
+   "tokens_out": 474,
+   "latency_ms": 1906,
+   "error": null
+  },
+  {
+   "control_number": "02313673000127-1-000121/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"realizará licitação, na modalidade Pregão, na forma Eletrônica, com critério de julgamento Menor\\nPreço\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":6,\"quote\":\"6.10. O procedimento seguirá de acordo com o modo de disputa aberto.\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"partial\",\"evidence\":{\"page\":3,\"quote\":\"4.5.1. considerando que os grupos não são de parHcipação exclusiva para microempresas e empresas de\\npequeno porte\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":11,\"quote\":\"8.10.2. Caso o licitante opte por não realizar vistoria, poderá subsHtuir a declaração exigida no presente\\nitem por declaração fo\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":20,\"quote\":\"11.1.Não haverá exigência de garantia contratual da execução.\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":10,\"quote\":\"8.4. PermiHda a parHcipação de consórcio de empresas\"}}}",
+   "tokens_in": 3878,
+   "tokens_out": 518,
+   "latency_ms": 13063,
+   "error": null
+  },
+  {
+   "control_number": "02934539000143-1-000014/2026",
+   "output": "{\"estimated_value\":{\"value\":93549.6,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO: R$ 93.549,60 (noventa e três mil, quinhentos e \\nquarenta e nove reais e sessenta centavos)\"}},\"proposal_deadline\":{\"value\":\"2026-11-05T08:00\",\"evidence\":{\"page\":1,\"quote\":\"➢ DATA DA SESSÃO PÚBLICA: Dia 05 de novembro de 2026 às 08:00h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"➢ CRITÉRIO DE JULGAMENTO: Menor Preço por Item\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":1,\"quote\":\"➢ MODO DE DISPUTA: Aberto\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":2,\"quote\":\"2.5. Para todos os itens a participação é exclusiva a microempresas e empresas de \\npequeno porte, nos termos do art. 48 da Lei Complementar nº 123, de 14 de dezembro de 2006.\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":3,\"quote\":\"2.7.9. pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3005,
+   "tokens_out": 564,
+   "latency_ms": 1969,
+   "error": null
+  },
+  {
+   "control_number": "06170517000105-1-000142/2026",
+   "output": "{\"estimated_value\":{\"value\":87574.63,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO: R$ 87.574,63\"}},\"proposal_deadline\":{\"value\":\"2026-11-09T11:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA: 9 de novembro de 2026, às 11h00 (horário de\\nBrasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO: menor preço total\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"MODO DE DISPUTA: aberto e fechado\"}},\"price_registration\":{\"value\":false,\"evidence\":{\"page\":11,\"quote\":\"10. DO REGISTRO DE PREÇOS\\n10.1.Não se aplica a presente contratação.\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":1,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS: sim\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":3,\"quote\":\"2.3.7. Pessoas jurídicas reunidas em consórcio, conforme Portaria GP TRE-RJ nº 18, de 06/03/2023.\"}}}",
+   "tokens_in": 4003,
+   "tokens_out": 571,
+   "latency_ms": 1968,
+   "error": null
+  },
+  {
+   "control_number": "10435993000188-1-000015/2026",
+   "output": "{\"estimated_value\":{\"value\":308714.77,\"evidence\":{\"page\":1,\"quote\":\"ESTIMATIVA DE VALOR: R$ 308.714,77 (trezentos e oito mil, setecentos e quatorze reais e setenta e \\nsete centavos).\"}},\"proposal_deadline\":{\"value\":\"2026-11-06T09:00\",\"evidence\":{\"page\":1,\"quote\":\"ENCERRAMENTO DO ENVIO DAS PROPOSTAS: 06/11/2026 09:00 h\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULAGAMENTO: MENOR PREÇO GLOBAL POR LOTE\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":1,\"quote\":\"MODO DISPUTA: ABERTO\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"SISTEMA DE REGISTRO DE PREÇOS\"}},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":1,\"quote\":\"EXCLUSIVO ME E EPP: NÃO\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":29,\"quote\":\"16.1 A Ata de Registro de Preços decorrente desta licitação terá vigência de 12 (doze) meses, contados da \\ndata de sua publicação no PNCP, podendo ser prorrogado por igual período.\"}},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":6,\"quote\":\"5.7 - Da Participação de Empresas em Consórcio\\n5.7.1 - Poderão participar deste Pregão todos os interessados em contratar com a Administração Municipal \\nque atuem no ramo de atividade pertinente ao objeto, legalmente constituídas, que satisfaçam as exigências \\nestabelecidas neste Edital e seus anexos. \\nNo caso de consórcio:\"}}}",
+   "tokens_in": 3821,
+   "tokens_out": 681,
+   "latency_ms": 2359,
+   "error": null
+  },
+  {
+   "control_number": "10952708000104-1-000107/2026",
+   "output": "{\"estimated_value\":{\"value\":1883927.76,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO\\nR$ 1.883.927,76 (Um milhão oitocentos e oitenta e três mil novecentos e vinte e \\nsete reais e setenta e seis centavos)\"}},\"proposal_deadline\":{\"value\":\"2026-11-09T09:00\",\"evidence\":{\"page\":2,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 09/11/2026 às 09h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":2,\"quote\":\"Critério de Julgamento:\\nmenor preço por grupo\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":2,\"quote\":\"Modo de disputa:\\naberto e fechado\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"Registro de preços para Contratação de serviços contínuos agropecuários, de manutenção,\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":2,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\nSIM\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":14,\"quote\":\"O licitante que optar por realizar vistoria prévia terá disponibilizado pela Administração data e horário\\nexclusivos, a ser agendado através do e-mail datep.cpin@ifrj.edu.br\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"3.9.12. pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3896,
+   "tokens_out": 641,
+   "latency_ms": 2203,
+   "error": null
+  },
+  {
+   "control_number": "11800731000138-1-000230/2026",
+   "output": "{\"estimated_value\":{\"value\":493920.0,\"evidence\":{\"page\":1,\"quote\":\"VALOR ESTIMADO DA CONTRATAÇÃO: R$ 493.920,00 (quatrocentos e noventa e três \\nmil, novecentos e vinte reais)\"}},\"proposal_deadline\":{\"value\":\"2026-11-10T14:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO: DIA 10 DE NOVEMBRO DE 2026, ÀS 14H00MIN\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO: MENOR PREÇO\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":1,\"quote\":\"DISPUTA DE LANCES: ABERTO\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"SISTEMA DE REGISTRO DE PREÇOS\"}},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":1,\"quote\":\"PARTICIPAÇÃO EXCLUSIVA ME/EPP/EQUIPARADAS: NÃO\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"2.11.3. Empresa, isoladamente ou em consórcio, responsável pela elaboração do \\nprojeto básico ou do projeto executivo\"}}}",
+   "tokens_in": 4193,
+   "tokens_out": 560,
+   "latency_ms": 2015,
+   "error": null
+  },
+  {
+   "control_number": "11800731000138-1-000324/2025",
+   "output": "{\"estimated_value\":{\"value\":8760.0,\"evidence\":{\"page\":1,\"quote\":\"VALOR ESTIMADO: R$ 8.760,00 (oito mil, setecentos e sessenta reais)\"}},\"proposal_deadline\":{\"value\":\"2026-11-10T13:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO: DIA 10 DE NOVEMBRO DE 2026, ÀS 13H00MIN\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO: MENOR PREÇO\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":1,\"quote\":\"DISPUTA DE LANCES: ABERTO\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":1,\"quote\":\"PARTICIPAÇÃO EXCLUSIVA ME/EPP/EQUIPARADAS: SIM\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":24,\"quote\":\"19.11. Não haverá exigência de garantia contratual.\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"Empresa, isoladamente ou em consórcio, responsável pela elaboração do\"}}}",
+   "tokens_in": 3958,
+   "tokens_out": 534,
+   "latency_ms": 1890,
+   "error": null
+  },
+  {
+   "control_number": "28523215000106-1-000372/2026",
+   "output": "{\"estimated_value\":{\"value\":190241.1,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL ESTIMADO\\nR$ 190.241,10\"}},\"proposal_deadline\":{\"value\":\"2026-11-04T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 04/NOV às 10h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"Critério de Julgamento:\\nMenor preço por item ou grupo\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":1,\"quote\":\"Modo de disputa:\\nAberto\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"partial\",\"evidence\":{\"page\":1,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\nConforme Anexo III\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":18,\"quote\":\"8.4. Quando permitida a participação de consórcio de empresas\"}}}",
+   "tokens_in": 3204,
+   "tokens_out": 494,
+   "latency_ms": 1828,
+   "error": null
+  },
+  {
+   "control_number": "28549483000105-1-000182/2026",
+   "output": "{\"estimated_value\":{\"value\":2639799.36,\"evidence\":{\"page\":3,\"quote\":\"totalizando a importância de R$ 2.639.799,36 (dois milhões, seiscentos e trinta e nove mil, setecentos e noventa e nove reais e trinta e seis centavos)\"}},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":3,\"quote\":\"6.1 O critério de julgamento da presente licitação é o Menor Preço Global, no\\nsistema de registro de preços.\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":11,\"quote\":\"7. Para a etapa de lances neste pregão eletrônico será adotado o modo de disputa\\naberto.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"SISTEMA REGISTRO DE PREÇOS\"}},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":36,\"evidence\":{\"page\":3,\"quote\":\"7.1 O Contrato vigorará a partir da publicação até 36 (trinta e seis) meses.\"}},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":12,\"quote\":\"12.2 Não será admitida a participação de empresas reunidas em consórcio\"}}}",
+   "tokens_in": 3896,
+   "tokens_out": 528,
+   "latency_ms": 2047,
+   "error": null
+  },
+  {
+   "control_number": "29063294000182-1-000340/2026",
+   "output": "{\"estimated_value\":{\"value\":70400.0,\"evidence\":{\"page\":1,\"quote\":\"Valor \\nEstimado Tipo \\n06/11/2026 –\\n09:00 \\nwww.comprasgovernamentais.gov.br R$ 70.400,00 Menor Preço por\\nItem\"}},\"proposal_deadline\":{\"value\":\"2026-11-06T09:00\",\"evidence\":{\"page\":1,\"quote\":\"Data / Hora Endereço Eletrônico Valor \\nEstimado Tipo \\n06/11/2026 –\\n09:00\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"Menor Preço por\\nItem\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":2,\"quote\":\"tipo MENOR \\nPREÇO POR ITEM e modo de disputa ABERTO E FECHADO\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"PREGÂO ELETRÔNICO Nº 300/2026- SRP\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":2,\"quote\":\"1.2- Poderão participar desta licitação, exclusivamente, as Microempresas/ME e \\nEmpresas de Pequeno Porte/EPP, assim como o Microempreendedor \\nIndividual\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":47,\"quote\":\"4.6.1- Não haverá exigência da garantia da contratação para este pregão, salvo \\naquelas previstas no Código do Consumidor (Lei nº 8.078, de 11 de setembro de \\n1990), referente a garantia do(s) objeto(s) licitado(s).\"}},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":5,\"quote\":\"2.7- A Ata de Registro de Preços terá o prazo estimado de 12 (doze) meses, \\ncontados a partir da data da assinatura pelas partes.\"}},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3987,
+   "tokens_out": 722,
+   "latency_ms": 2578,
+   "error": null
+  },
+  {
+   "control_number": "29063294000182-1-000344/2026",
+   "output": "{\"estimated_value\":{\"value\":889699.4,\"evidence\":{\"page\":1,\"quote\":\"Valor\\nEstimado\\nTipo\\n09/11/2026 –\\n09:00\\nwww.comprasnet.gov.br R$ 889.699,40Menor Preço\\nGlobal por Lote\"}},\"proposal_deadline\":{\"value\":\"2026-11-09T09:00\",\"evidence\":{\"page\":1,\"quote\":\"09/11/2026 –\\n09:00\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"Menor Preço\\nGlobal por Lote\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":2,\"quote\":\"tipo MENOR\\nPREÇO GLOBAL POR LOTE e modo de disputa ABERTO E FECHADO nos\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"PREGÃO ELETRÔNICO 303/2026- SRP\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":1,\"quote\":\"Exclusiva MEI/ME/EPP Vistoria Prévia Amostra\\nNão Não Conforme item\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":49,\"quote\":\"4.10.1- Não haverá exigência da garantia da contratação para este pregão, salvo\\naquelas previstas no Código do Consumidor ( Lei nº 8.078, de 11 de setembro de\\n1990), referente a garantia do(s) objeto(s) licitado(s).\"}},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":5,\"quote\":\"2.6- A Ata de Registro de Preços terá o prazo estimado de 12 (doze) meses,\\ncontados a partir da data da assinatura pelas partes.\"}},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":22,\"quote\":\"9.3- Quando permitida a participação de consórcio de empresas, a habilitação\"}}}",
+   "tokens_in": 3993,
+   "tokens_out": 734,
+   "latency_ms": 2375,
+   "error": null
+  },
+  {
+   "control_number": "29138302000102-1-000264/2026",
+   "output": "{\"estimated_value\":{\"value\":693369.52,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO\\nR$ 693.369,52 (SEISCENTOS E NOVENTA E TRÊS MIL, TREZENTOS E SESSENTA E NOVE \\nREAIS E CINQUENTA E DOIS CENTAVOS).\"}},\"proposal_deadline\":{\"value\":\"2026-11-05T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 05/11/2026 às 10:00h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO:\\nMenor Preço Por Item\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":9,\"quote\":\"5.8. Será adotado para o envio de lances no pregão eletrônico o modo de disputa “ABERTO”, em\\nque os licitantes apresentarão lances públicos e sucessivos.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"PREGÃO ELETRÔNICO PARA REGISTRO DE PREÇOS Nº 056/2026-R1\"}},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":27,\"quote\":\"14.2. DA GARANTIA \\nNão haverá exigência da garantia da contratação nos moldes dos artigos 96 e seguintes da Lei nº \\n14.133, de 2021, pois não há elevado risco de dano à administração pública.\"}},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":19,\"quote\":\"9.6. O prazo de validade da Ata de Registro de Preços é de 1 (um) ano, contado a partir do 1º \\n(primeiro) dia útil subsequente à data de divulgação no PNCP.\"}},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 4091,
+   "tokens_out": 704,
+   "latency_ms": 2063,
+   "error": null
+  },
+  {
+   "control_number": "29138302000102-1-000266/2026",
+   "output": "{\"estimated_value\":{\"value\":582097.5,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO:\\nR$ 582.097,50 (QUINHENTOS E OITENTA E DOIS MIL, NOVENTA E SETE REAIS E CINQUENTA \\nCENTAVOS).\"}},\"proposal_deadline\":{\"value\":\"2026-11-04T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA:\\nDia 04/11/2026 às 10:00h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO:\\nMenor preço por item\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":11,\"quote\":\"Será adotado para o envio de lances no pregão eletrônico o modo de disputa “ABERTO”, em que\\nos licitantes apresentarão lances públicos e sucessivos.\"}},\"price_registration\":{\"value\":false,\"evidence\":null},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":26,\"quote\":\"11.2. DA GARANTIA \\nNão haverá exigência da garantia da contratação nos moldes dos artigos 96 e seguintes da Lei nº \\n14.133, de 2021, pois não há elevado risco de dano à administração pública.\"}},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":28,\"quote\":\"13.1. O prazo de vigência da contratação é de 12 (doze) meses, contados a partir da emissão ordem \\nde fornecimento, na forma do artigo 106 e 107 da Lei n° 14.133, de 2021.\"}},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3893,
+   "tokens_out": 662,
+   "latency_ms": 2250,
+   "error": null
+  },
+  {
+   "control_number": "29138302000102-1-000267/2026",
+   "output": "{\"estimated_value\":{\"value\":1395127.0,\"evidence\":{\"page\":1,\"quote\":\"VALOR TOTAL DA CONTRATAÇÃO:\\nR$ 1.395.127,00 (UM MILHÃO, TREZENTOS E NOVENTA E CINCO MIL E CENTO E VINTE E \\nSETE REAIS).\"}},\"proposal_deadline\":{\"value\":\"2026-11-06T10:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA:\\nDia 06/11/2026 às 10:00h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO:\\nMenor preço por Lote\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":9,\"quote\":\"5.8. Será adotado para o envio de lances no pregão eletrônico o modo de disputa “ABERTO”, em\\nque os licitantes apresentarão lances públicos e sucessivos.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":47,\"quote\":\"8.1.1. A contratação será realizada mediante Pregão Eletrônico, pelo Sistema de Registro de \\nPreços – SRP, adotando-se como critério de julgamento o menor preço por lote\"}},\"small_business\":{\"value\":\"none\",\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":27,\"quote\":\"14.2. DA GARANTIA \\nNão haverá exigência da garantia da contratação nos moldes dos artigos 96 e seguintes da Lei nº \\n14.133, de 2021, pois não há elevado risco de dano à administração pública.\"}},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":20,\"quote\":\"9.6. O prazo de validade da Ata de Registro de Preços é de 1 (um) ano, contado a partir do 1º \\n(primeiro) dia útil subsequente à data de divulgação no PNCP.\"}},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 3821,
+   "tokens_out": 716,
+   "latency_ms": 2594,
+   "error": null
+  },
+  {
+   "control_number": "29141322000132-1-000261/2026",
+   "output": "{\"estimated_value\":{\"value\":275450.0,\"evidence\":{\"page\":1,\"quote\":\"VALOR ESTIMADO DA CONTRATAÇÃO: R$ 275.450,00 (duzentos e setenta e cinco mil e quatrocentos e \\ncinquenta reais).\"}},\"proposal_deadline\":{\"value\":\"2026-11-04T00:00\",\"evidence\":{\"page\":1,\"quote\":\"RECEBIMENTO DAS PROPOSTAS ATÉ: 04/11/2026 – H\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"critério de julgamento MENOR PREÇO \\nGLOBAL\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":6,\"quote\":\"5.11 – Será adotado neste pregão eletrônico o MODO DE DISPUTA “ABERTO”.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"PREGÃO ELETRÔNICO, para \\nREGISTRO DE PREÇOS\"}},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":12,\"quote\":\"com vigência de 01 (um) ano, podendo ser prorrogada por igual \\nperíodo\"}},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":2,\"quote\":\"2.8 – Será permitida a participação em consórcio, sujeita às seguintes regras:\"}}}",
+   "tokens_in": 3833,
+   "tokens_out": 573,
+   "latency_ms": 2031,
+   "error": null
+  },
+  {
+   "control_number": "29178233000160-1-000180/2026",
+   "output": "{\"estimated_value\":{\"value\":1161000.0,\"evidence\":{\"page\":1,\"quote\":\"VALOR ESTIMADO DA CONTRATAÇÃO: R$ 1.161.000,00 (Um milhão e cento e \\nsessenta e um mil reais)\"}},\"proposal_deadline\":{\"value\":\"2026-11-05T14:00\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO: Dia 05 de novembro de 2026, às 14 h 00 min\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO: MENOR PREÇO\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":1,\"quote\":\"DISPUTA DE LANCES: ABERTO\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"SISTEMA DE REGISTRO DE PREÇOS\"}},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":1,\"quote\":\"PARTICIPAÇÃO EXCLUSIVA ME/EPP/EQUIPARADAS: NÃO\"}},\"site_visit\":{\"value\":null,\"evidence\":{\"page\":1,\"quote\":\"VISTORIA TÉCNICA: NÃO SE APLICA\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":1,\"quote\":\"EXIGÊNCIA DE GARANTIA CONTRATUAL: NÃO\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":null,\"evidence\":null}}",
+   "tokens_in": 4131,
+   "tokens_out": 572,
+   "latency_ms": 2969,
+   "error": null
+  },
+  {
+   "control_number": "30467039000184-1-000048/2026",
+   "output": "{\"estimated_value\":{\"value\":110576.88,\"evidence\":{\"page\":4,\"quote\":\"totalizando a importância de R$ 110.576,88 (cento e dez mil, quinhentos e setenta e seis reais e oitenta e oito centavos).\"}},\"proposal_deadline\":{\"value\":\"2026-11-10T13:00\",\"evidence\":{\"page\":3,\"quote\":\"3.1 – No dia 10 de novembro de 2026, às 13:00h, o Pregoeiro iniciará a sessão pública do \\nPREGÃO ELETRÔNICO PE – CMRJ Nº 41/2026\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":4,\"quote\":\"6.1 – O critério de julgamento da presente licitação é o menor preço global.\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":13,\"quote\":\"11.7 – Para a etapa de lances neste pregão eletrônico será adotado o modo de disputa \\naberto.\"}},\"price_registration\":{\"value\":false,\"evidence\":null},\"small_business\":{\"value\":\"none\",\"evidence\":null},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":28,\"quote\":\"(E.5) Atestado de que o licitante visitou o local dos serviços, e tomou conhecimento das condições \\npara execução do objeto desta licitação, quando for o caso. O ATESTADO DE VISITA \\npode ser substituído por declaração em que o licitante ateste que conhece o local e as \\ncondições de realização do objeto do contrato, conforme o § 2º do art. 63 da Lei Federal nº \\n14.133/2021.\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":4,\"quote\":\"7.1 – A contratação terá eficácia a partir da data da publicação do instrumento \\ncorrespondente no Portal Nacional de Contratações Públicas e vigorará por 12 (doze) \\nmeses contados desta ou da data estabelecida no memorando de início, se houver.\"}},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":6,\"quote\":\"8.9 – Será permitida a participação em consórcio, sujeita às seguintes regras:\"}}}",
+   "tokens_in": 3945,
+   "tokens_out": 750,
+   "latency_ms": 2891,
+   "error": null
+  },
+  {
+   "control_number": "33781055000135-1-001784/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":{\"page\":1,\"quote\":\"O custo estimado da contratação possui caráter sigiloso e será tornado público apenas e imediatamente\\napós o julgamento das propostas (art. 12 § 1º da IN 73/2022).\"}},\"proposal_deadline\":{\"value\":\"2026-11-04T09:00\",\"evidence\":{\"page\":1,\"quote\":\"Dia 04/11/2026 às 09:00hs (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"Critério de Julgamento:\\nmenor preço por item\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"Modo de disputa:\\naberto e fechado\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":1,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\nNÃO\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":3,\"quote\":\"2.6.12. pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3941,
+   "tokens_out": 512,
+   "latency_ms": 2703,
+   "error": null
+  },
+  {
+   "control_number": "33781055000135-1-001786/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":{\"page\":1,\"quote\":\"O custo estimado da contratação possui caráter sigiloso e será tornado \\npúblico apenas e imediatamente após o julgamento das propostas (art. \\n12 § 1º da IN 73/2022).\"}},\"proposal_deadline\":{\"value\":\"2026-11-03T09:30\",\"evidence\":{\"page\":1,\"quote\":\"DATA DA SESSÃO PÚBLICA\\nDia 03/11/2026 às 09:30h (horário de Brasília)\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO: \\nmenor preço item\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"MODO DE DISPUTA:\\naberto e fechado\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":3,\"quote\":\"2.6. Para todos os itens, a participação é exclusiva a microempresas e empresas de pequeno porte, nos \\ntermos do art. 48 da Lei Complementar nº 123, de 14 de dezembro de 2006.\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":39,\"quote\":\"4.3. Não haverá exigência da garantia da contratação dos art. 96 e seguintes da Lei nº 14.133, de 2021, pelas razões constantes do Estudo Técnico\\nPreliminar.\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"2.8.11 pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3733,
+   "tokens_out": 635,
+   "latency_ms": 2281,
+   "error": null
+  },
+  {
+   "control_number": "36507127000149-1-000224/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":\"2026-11-09T09:00\",\"evidence\":{\"page\":1,\"quote\":\"• Encerramento de recebimento de Propostas: 09/11/2026 às 09:00 horas\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"TIPO: MENOR PREÇO POR ITEM\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":9,\"quote\":\"9.11 – O procedimento seguirá de acordo com o MODO DE DISPUTA ABERTO.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"PREGÃO (ELETRONICO) P/ REGISTRO DE PREÇOS Nº 074/2026\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":1,\"quote\":\"PARTICIPAÇÃO EXCLUSIVA ME/MEI/EPP\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":18,\"quote\":\"13.6 – O prazo de vigência da presente Ata de Registro de Preços é de um ano, prorrogável\"}},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"6.4.3 – Empresa, isoladamente ou em consórcio, responsável pela elaboração do\"}}}",
+   "tokens_in": 3955,
+   "tokens_out": 550,
+   "latency_ms": 2031,
+   "error": null
+  },
+  {
+   "control_number": "37115383000153-1-000136/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":{\"page\":1,\"quote\":\"VALOR ESTIMADO DA CONTRATAÇÃO\\nSIGILOSO (conforme art. 34 da lei 13.303/16)\"}},\"proposal_deadline\":{\"value\":\"2026-11-10T10:00\",\"evidence\":{\"page\":1,\"quote\":\"10/11/2026 às 10:00 horas.\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"Menor Preço Global\"}},\"dispute_mode\":{\"value\":null,\"evidence\":null},\"price_registration\":{\"value\":false,\"evidence\":null},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":1,\"quote\":\"EXCLUSIVA\\nME/EPP?\\nNÃO\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":3,\"quote\":\"4. Condições de Participação de Consórcio \\n4.1. Será permitida a participação de sociedades organizadas sob a forma de Consórcio\"}}}",
+   "tokens_in": 3819,
+   "tokens_out": 463,
+   "latency_ms": 1829,
+   "error": null
+  },
+  {
+   "control_number": "39217831000155-1-000161/2026",
+   "output": "{\"estimated_value\":{\"value\":331644.42,\"evidence\":{\"page\":46,\"quote\":\"O valor total estimado para a contratação é de R$ 331.644,42.\"}},\"proposal_deadline\":{\"value\":\"2026-11-11T09:00\",\"evidence\":{\"page\":1,\"quote\":\"Data e horário final para envio de Proposta: 11/11/2026 ás 9 horas.\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"Critério de Julgamento: MENOR VALOR - POR ITEM\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":1,\"quote\":\"MODO DE DISPUTA: Aberto\"}},\"price_registration\":{\"value\":null,\"evidence\":null},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":2,\"quote\":\"essa licitação SERÁ DESTINADA EXCLUSIVAMENTE A MICROEMPRESAS E EMPRESAS DE PEQUENO PORTE - EPP OU EQUIPARADAS.\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":32,\"quote\":\"8.7.1 - Não haverá exigência de garantia contratual da execução.\"}},\"contract_term_months\":{\"value\":6,\"evidence\":{\"page\":28,\"quote\":\"5.1 - O prazo de vigência da contratação será 6 (seis) meses contados a partir da emissão do empenho nos termos do art. 105 da Lei 14.133/21.\"}},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":3,\"quote\":\"2.5.9. pessoas jurídicas reunidas em consórcio[1];\"}}}",
+   "tokens_in": 3751,
+   "tokens_out": 620,
+   "latency_ms": 2203,
+   "error": null
+  },
+  {
+   "control_number": "39260120000163-1-000033/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":null},\"proposal_deadline\":{\"value\":\"2026-11-11T10:00\",\"evidence\":{\"page\":2,\"quote\":\"Execução Data/Horário: 11 de novembro de \\n2026 às 10:00 horas.\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":2,\"quote\":\"Critério de Julgamento: menor preço por \\nitem.\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":49,\"quote\":\"critério de julgamento menor preço por item e modo de disputa aberto em \\nconsonância a Lei Federal nº 14.133/2021 e Decreto Municipal nº 520/2023.\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":2,\"quote\":\"EDITAL PREGÃO ELETRÔNICO – AQUISIÇÃO DE BENS (SRP)\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":6,\"quote\":\"8.1. Poderão participar da presente licitação todas as microempresas e empresas de pequeno \\nporte, interessadas nos item(ns)/lote(s) destinados exclusivamente a elas\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":52,\"quote\":\"Não haverá exigência de garantia de execução para a presente contratação.\"}},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":5,\"quote\":\"7.1. A contratação vigorará a partir da retirada da Nota de Empenho ou do instrumento \\nequivalente até 12 (doze) meses.\"}},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":6,\"quote\":\"8.9. – Não será permitida a participação em consórcio.\"}}}",
+   "tokens_in": 4005,
+   "tokens_out": 632,
+   "latency_ms": 2500,
+   "error": null
+  },
+  {
+   "control_number": "39563911000162-1-000225/2026",
+   "output": "{\"estimated_value\":{\"value\":814640.15,\"evidence\":{\"page\":1,\"quote\":\"Valor Estimado Tipo\\n06/11/2026 www.gov.br/compras/pt-br R$ 814.640,15 MENOR PREÇO\"}},\"proposal_deadline\":{\"value\":\"2026-11-06T09:00\",\"evidence\":{\"page\":1,\"quote\":\"06/11/2026 www.gov.br/compras/pt-br R$ 814.640,15 MENOR PREÇO \\nHorário da Fase de Lances: 09:00\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"critério de julgamento MENOR PREÇO POR ITEM\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"na modalidade PREGÃO, na forma \\nELETRÔNICA, no modo de disputa ABERTO E FECHADO\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":1,\"quote\":\"Objeto\\nRegistro de preços para futura e eventual aquisição de nutrição para atendimento do Protocolo de \\nDispensação de Fórmulas Infantis\"}},\"small_business\":{\"value\":null,\"evidence\":null},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":null},\"contract_term_months\":{\"value\":12,\"evidence\":{\"page\":15,\"quote\":\"com vigência \\nde 01 (um) ano, podendo ser prorrogada por igual período\"}},\"consortium_allowed\":{\"value\":true,\"evidence\":{\"page\":3,\"quote\":\"5.9. Será permitida a participação em consórcio, sujeita às seguintes regras:\"}}}",
+   "tokens_in": 3948,
+   "tokens_out": 625,
+   "latency_ms": 2453,
+   "error": null
+  },
+  {
+   "control_number": "42441758000105-1-000187/2026",
+   "output": "{\"estimated_value\":{\"value\":2812241.48,\"evidence\":{\"page\":2,\"quote\":\"R$  2.812.241,48 (dois milhões, oitocentos e doze mil, duzentos e quarenta e um \\nreais e quarenta e oito centavos).\"}},\"proposal_deadline\":{\"value\":null,\"evidence\":null},\"award_criterion\":{\"value\":\"highest_discount\",\"evidence\":{\"page\":2,\"quote\":\"Critério de Julgamento:\\nmaior desconto\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":2,\"quote\":\"Modo de disputa:\\naberto\"}},\"price_registration\":{\"value\":true,\"evidence\":{\"page\":2,\"quote\":\"para registro de preços, na modalidade PREGÃO ELETRÔNICO\"}},\"small_business\":{\"value\":\"exclusive\",\"evidence\":{\"page\":2,\"quote\":\"TRATAMENTO FAVORECIDO ME/EPP/EQUIPARADAS\\nSIM\"}},\"site_visit\":{\"value\":\"optional\",\"evidence\":{\"page\":13,\"quote\":\"inabilitação, que conhece o local e as condições de realização do serviço, assegurado a ele o direito de realização de\\nvistoria prévia.\"}},\"performance_guarantee_pct\":{\"value\":null,\"evidence\":{\"page\":48,\"quote\":\"4.5.  Não haverá exigência da garantia da contratação dos art. 96 e seguintes da Lei nº 14.133, de 2021, pelas\\nseguintes razões:\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"3.6.12. pessoas jurídicas reunidas em consórcio;\"}}}",
+   "tokens_in": 3922,
+   "tokens_out": 614,
+   "latency_ms": 2203,
+   "error": null
+  },
+  {
+   "control_number": "42498600000171-1-004542/2026",
+   "output": "{\"estimated_value\":{\"value\":17192854.8,\"evidence\":{\"page\":1,\"quote\":\"R$ 17.192.854,80 (dezessete milhões, cento e noventa e dois mil, oitocentos e cinquenta \\ne quatro reais e oitenta centavos)\"}},\"proposal_deadline\":{\"value\":\"2026-11-06T13:00\",\"evidence\":{\"page\":1,\"quote\":\"Limite do Acolhimento Das Propostas 06 11 2026 13:00 horas\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"CRITÉRIO DE JULGAMENTO:\\nMenor Preço Global\"}},\"dispute_mode\":{\"value\":\"open_closed\",\"evidence\":{\"page\":1,\"quote\":\"MODO DE DISPUTA:\\n“Aberto e Fechado”\"}},\"price_registration\":{\"value\":false,\"evidence\":null},\"small_business\":{\"value\":\"none\",\"evidence\":{\"page\":3,\"quote\":\"2.5 No presente processo licitatório não há participação exclusiva de microempresas e \\nempresas de pequeno porte, nos termos do art. 48 da Lei Complementar nº 123, de 14 de \\ndezembro de 2006.\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":5.0,\"evidence\":{\"page\":19,\"quote\":\"12.1 O Contrato conta com garantia de execução, nos moldes do art. 96 da Lei nº \\n14.133/2021, correspondente a 5% (cinco por cento) de seu valor anual do contrato.\"}},\"contract_term_months\":{\"value\":24,\"evidence\":{\"page\":6,\"quote\":\"centos e dezenove reais e trinta e seis centavos) para o período de 24 \\n(vinte e quatro) meses, valor estipulado pela PROCURADORIA GERAL DO ESTADO\"}},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"2.9 Não será admitida a participação de pessoas jurídicas em regime de consórcio, \\nqualquer que seja sua forma de constituição, por não se tratar de execução contratual de \\ndimensão de alta complexidade.\"}}}",
+   "tokens_in": 3556,
+   "tokens_out": 747,
+   "latency_ms": 2250,
+   "error": null
+  },
+  {
+   "control_number": "42498733000148-1-002112/2026",
+   "output": "{\"estimated_value\":{\"value\":null,\"evidence\":{\"page\":3,\"quote\":\"5.2. O valor estimado da licitação será sigiloso, em atendimento ao que dispõe o art. 45 do\\nDecreto Municipal 44.698/2018 e na forma do Regulamento de Licitações e Contratos da\\nCOMLURB.\"}},\"proposal_deadline\":{\"value\":\"2026-11-05T10:00\",\"evidence\":{\"page\":3,\"quote\":\"3.1. No dia 05 de novembro de 2026, às 10:00h (horário de Brasília), o Pregoeiro iniciará a\\nsessão pública do Pregão Eletrônico - PE 1859/2026\"}},\"award_criterion\":{\"value\":\"lowest_price\",\"evidence\":{\"page\":1,\"quote\":\"PREGÃO ELETRÔNICO, do tipo MENOR PREÇO POR ITEM\"}},\"dispute_mode\":{\"value\":\"open\",\"evidence\":{\"page\":8,\"quote\":\"11.7. Para a etapa de lances neste pregão eletrônico será adotado o modo de disputa “aberto”,\\nem que os licitantes apresentarão lances públicos e sucessivos, com prorrogações.\"}},\"price_registration\":{\"value\":false,\"evidence\":null},\"small_business\":{\"value\":\"partial\",\"evidence\":{\"page\":3,\"quote\":\"4.2. Será reservada exclusivamente para microempresas e empresas de pequeno porte uma\\ncota de aproximadamente 05% (cinco por cento), do valor estimado para a aquisição\"}},\"site_visit\":{\"value\":null,\"evidence\":null},\"performance_guarantee_pct\":{\"value\":2.0,\"evidence\":{\"page\":19,\"quote\":\"16.1. A ADJUDICATÁRIA prestará garantia de 2% (dois por cento) do valor total do Contrato\"}},\"contract_term_months\":{\"value\":null,\"evidence\":null},\"consortium_allowed\":{\"value\":false,\"evidence\":{\"page\":4,\"quote\":\"8.8. Não será permitida a participação em consórcio.\"}}}",
+   "tokens_in": 3860,
+   "tokens_out": 676,
+   "latency_ms": 2781,
+   "error": null
+  }
+ ]
+}
