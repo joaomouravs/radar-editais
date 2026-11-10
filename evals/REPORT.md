@@ -10,6 +10,7 @@ disagree); gold labels are annotated, see `docs/annotation.md`.
 | gemini-flash-lite-full | `gemini:gemini-3.5-flash-lite` | full | 40/40 | 90% | 92% | 96% | 42,399 | 3.2s / 63.3s |
 | gemini-flash-lite-retrieve-v1 | `gemini:gemini-3.5-flash-lite` | retrieve v1 | 40/40 | 82% | 82% | 98% | 3,833 | 2.2s / 3.0s |
 | gemini-flash-lite-retrieve-v2 | `gemini:gemini-3.5-flash-lite` | retrieve v2 | 40/40 | 86% | 94% | 98% | 3,865 | 2.2s / 3.4s |
+| groq-qwen3.8-27b-retrieve-v2 | `groq:qwen/qwen3.8-27b` | retrieve v2 | 40/40 | 80% | 78% | 100% | 3,733 | 1.7s / 3.9s |
 
 ## Retrieval (version 2)
 
@@ -96,5 +97,30 @@ Overall: 90% of 366 labelled fields.
 Evidence: 269 quotes, 98% on the cited page, 1 on another page, 5 not in the document.
 
 Tokens per valid answer: p50 3864 in, 613 out. Latency: p50 2.2s, p95 3.2s.
+
+Prompt version 3.
+
+## groq-qwen3.8-27b-retrieve-v2: `groq:qwen/qwen3.8-27b`
+
+40 notices, 0 without a valid answer.
+
+| Field | Labelled | Accuracy | Baseline | Wrong | Missed | Invented | Labels |
+| --- | --: | --: | --: | --: | --: | --: | --- |
+| `estimated_value` | 27 | 93% | 4% | 1 | 1 | 0 | 26 silver, 1 override |
+| `proposal_deadline` | 19 | 68% | 16% | 3 | 3 | 0 | 19 silver |
+| `award_criterion` | 40 | 98% | 95% | 1 | 0 | 0 | 40 silver |
+| `dispute_mode` | 40 | 92% | 65% | 3 | 0 | 0 | 40 silver |
+| `price_registration` | 40 | 62% | 50% | 1 | 14 | 0 | 40 silver |
+| `small_business` | 40 | 65% | 57% | 11 | 3 | 0 | 40 silver |
+| `site_visit` | 40 | 85% | 72% | 0 | 0 | 6 | 40 gold |
+| `performance_guarantee_pct` | 40 | 65% | 88% | 0 | 0 | 14 | 40 gold |
+| `contract_term_months` | 40 | 72% | 62% | 3 | 8 | 0 | 40 gold |
+| `consortium_allowed` | 40 | 88% | 42% | 0 | 1 | 4 | 40 gold |
+
+Overall: 79% of 366 labelled fields.
+
+Evidence: 277 quotes, 100% on the cited page, 0 on another page, 1 not in the document.
+
+Tokens per valid answer: p50 3732 in, 410 out. Latency: p50 1.7s, p95 3.6s.
 
 Prompt version 3.

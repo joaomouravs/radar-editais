@@ -12,7 +12,33 @@ how to tell a model that answered "not stated" correctly from one that missed th
 answer, and how to fit 140,000-character documents into a free tier that allows 8,000
 tokens a minute.
 
-<!-- results -->
+## Results
+
+40 editais from Rio de Janeiro, ten fields each. Full per-field tables, baselines and
+error counts are in [evals/REPORT.md](evals/REPORT.md), which CI regenerates.
+
+| Run | Context sent | Silver fields | Gold fields | Tokens in (p50) | Latency p95 |
+| --- | --- | --: | --: | --: | --: |
+| Gemini 3.5 Flash-Lite | whole edital | 90% | 92% | 42,399 | 63.3s |
+| Gemini 3.5 Flash-Lite | retrieval v1 | 82% | 82% | 3,833 | 3.0s |
+| Gemini 3.5 Flash-Lite | **retrieval v2** | 86% | **94%** | **3,865** | **3.4s** |
+| Qwen 3.8 27B (Groq) | retrieval v2 | 80% | 78% | 3,733 | 3.9s |
+
+- **Sending 9% of the edital costs almost nothing.** Retrieval v2 sends 11× fewer
+  tokens than the whole document and scores 94% against 92% on the gold fields, 86%
+  against 90% on the silver ones, with the slowest answer down from 63 s to 3.4 s.
+  Version 1 lost ten points because it often skipped the page that settles the answer;
+  version 2's patterns follow how those clauses are actually written and send that page
+  in 66 of 70 cases (an optimistic figure: they were tuned on these same notices).
+- **A strict schema guarantees the shape, not the meaning.** Qwen returned valid JSON
+  for all 40 editais, and every quote it gave is on the page it cites. It still broke
+  the rules written in the field descriptions: "no guarantee required" came back as
+  `0` instead of null 14 times, a five-year contract "renewable up to ten" became 180
+  months although the description says "without extensions", and a form line reading
+  "VISTORIA TÉCNICA: NÃO SE APLICA" became a mandatory site visit five times. Gemini
+  followed the same descriptions. The scoring keeps them strict, because downstream
+  code would have to special-case every one of these; counting `0` as "none" alone
+  would lift Qwen's guarantee field from 65% to 100%.
 
 ## What the data taught me
 
